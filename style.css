@@ -1,0 +1,259 @@
+body {
+    background-color: #098860;
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+    background-color: rgba(0, 0, 0, .15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    padding:0px 4px;
+}
+
+h1 {
+    padding: 0px;
+    margin: 0px;
+    color: rgba(255, 255, 255, .5);
+    font-family: 'Sedgwick Ave', cursive;
+    /* text-align: center; */
+}
+
+.heading{
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.nav-item-last {
+    flex: 1;
+    text-align: right;
+}
+
+h1:hover{
+    color: rgba(255, 255, 255, .8);
+}
+
+.nav-item {
+    flex: 1;
+}
+
+.nav-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.nav-link-square {
+    background-color: rgba(255, 255, 255, .3);
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .9);
+    width: 32px;
+    height: 32px;
+}
+
+.nav-link-square:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+.nav-link-circle{
+    width:32px;
+    height:32px;
+    background-color: #DFE3E6;
+    border-radius: 100%;
+    color:#17394d;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: bottom;
+}
+
+
+.nav-link-circle:hover {
+    background-color: #c9d0d5;
+}
+
+/*--- Subnav --*/
+
+#subnav {
+    padding: 8px;
+}
+
+#subnav a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#subnav-my-board {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+    padding: 1px 12px;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#subnav-my-board:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+#subnav-star {
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 10px;
+    width: 34px;
+    line-height: 34px;
+    height: 34px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+#subnav-star:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+#subnav-personal {
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 0px 8px;
+}
+
+#subnav-personal:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.subnav-lil-line {
+    height: 16px;
+    border-left: 1px solid rgba(255, 255, 255, .3);
+    width: 0px;
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+#subnav-private {
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 0px 8px;
+}
+
+#subnav-private i {
+    font-size: 10px;
+    vertical-align: 16%;
+}
+
+#subnav-private:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+#subnav-circle{
+    width:28px;
+    height:28px;
+    background-color: #DFE3E6;
+    border-radius: 100%;
+    color:#17394d!important;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: 5%;
+    display: inline-flex!important;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 4px;
+}
+
+#subnav-circle:hover {
+    background-color: #c9d0d5;
+}
+
+#subnav-invite {
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 0px 8px;
+    background-color: rgba(255, 255, 255, .3);
+}
+
+#subnav-invite:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+#show-menu {
+    float: right;
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0px 8px;
+    border-radius: 3px;
+    text-align: center;
+    vertical-align: bottom;
+    color: rgba(255, 255, 255, .8);
+}
+
+#show-menu:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+#show-menu i {
+    font-size: 10px;
+    vertical-align: 12%;
+}
+
+.swim-lane-placeholder {
+    border-radius: 3px;
+    color: rgba(255, 255, 255, .8);
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    width: 255px;
+    vertical-align: bottom;
+    padding: 0px 8px;
+    background-color: rgba(0, 0, 0, .15);
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.swim-lane-placeholder:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.swim-lane-placeholder i {
+    font-size: 10px;
+    vertical-align: 12%;
+    margin-left: 10px;
+}
+
+.swim-lane-namer {
+    background-color: #DFE3E6;
+    width: 263px;
+    border-radius: 3px;
+    margin-left: 8px;
+    padding: 4px;
+}
+
+.swim-lane-namer input {
+    width: 100%;
+}
