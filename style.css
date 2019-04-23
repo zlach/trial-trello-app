@@ -1,5 +1,5 @@
 body {
-    background-color: #098860;
+    background-color: #889999;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -227,11 +227,12 @@ nav a {
     font-size: 14px;
     height: 40px;
     line-height: 40px;
-    width: 255px;
+    width: 271px;
     vertical-align: bottom;
     padding: 0px 8px;
     background-color: rgba(0, 0, 0, .15);
-    text-decoration: none;
+    border: none;
+    text-align: left;
     display: inline-block;
     margin-left: 8px;
 }
@@ -248,7 +249,7 @@ nav a {
 
 .swim-lane-namer {
     background-color: #DFE3E6;
-    width: 263px;
+    min-width: 263px;
     border-radius: 3px;
     margin-left: 8px;
     padding: 4px;
@@ -261,6 +262,7 @@ nav a {
     line-height: 20px;
     padding: 6px 12px;
     font-size: 14px;
+    color: #17394d;
 }
 
 .swim-lane-namer .list-title:focus {
@@ -304,17 +306,43 @@ nav a {
     color: #516b7a;
 }
 
+#list-group {
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x: scroll;
+    height: calc(100vh - 90px);/*??*/
+    align-items: flex-start;
+    clear: both;
+}
+
 /*--- JavaScript elements --*/
 .list {
     display: inline-block;
-    color: black;
+    color: #17394d;
     background-color: #DFE3E6;
-    width: 263px;
+    min-width: 263px;
     margin-left: 8px;
     font-size: 14px;
     line-height: 20px;
     border-radius: 3px;
     padding: 8px;
     font-weight: 600;
+    max-height:200px;
     vertical-align: top;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.list-button {
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.list-span {
+    max-width: 200px;
+    word-break: break-all;
 }
