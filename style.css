@@ -69,7 +69,7 @@ nav a {
     background-color: #DFE3E6;
     border-radius: 100%;
     color:#17394d;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 12px;
     vertical-align: bottom;
 }
@@ -170,7 +170,7 @@ nav a {
     background-color: #DFE3E6;
     border-radius: 100%;
     color:#17394d!important;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 12px;
     vertical-align: 5%;
     display: inline-flex!important;
@@ -252,8 +252,69 @@ nav a {
     border-radius: 3px;
     margin-left: 8px;
     padding: 4px;
+    display: none; /*begins hidden and will appear with js*/
 }
 
-.swim-lane-namer input {
+.swim-lane-namer .list-title {
     width: 100%;
+    box-sizing: border-box;
+    line-height: 20px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.swim-lane-namer .list-title:focus {
+    border: 2px solid #0079bf;
+    outline: none;
+    border-radius: 3px;
+}
+
+.swim-lane-namer .add-list {
+    background-color: #5aac44;
+    line-height: 20px;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    margin-top: 4px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.swim-lane-namer .add-list:hover {
+    background-color: #519839;
+}
+
+.swim-lane-namer .add-list:focus {
+    outline: none;
+}
+
+.swim-lane-namer a {
+    margin-left: 8px;
+    color: #798d99;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.swim-lane-namer i{
+    vertical-align: text-bottom;
+}
+
+.swim-lane-namer a:hover {
+    color: #516b7a;
+}
+
+/*--- JavaScript elements --*/
+.list {
+    display: inline-block;
+    color: black;
+    background-color: #DFE3E6;
+    width: 263px;
+    margin-left: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 3px;
+    padding: 8px;
+    font-weight: 600;
+    vertical-align: top;
 }

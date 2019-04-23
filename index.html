@@ -37,9 +37,14 @@
             <a href="#" id="subnav-invite">Invite</a>
             <a href="#" id="show-menu"><i class="fas fa-ellipsis-h"></i> &nbsp<u>Show Menu</u></a>
         </div>
-        <a href="#" class="swim-lane-placeholder"><i class="fas fa-plus"></i> &nbspAdd a list</a>
-        <div class="swim-lane-namer">
-            <input type="text" placeholder="Enter list title..."></input>
+        <div id="list-group">
+            
+            <a href="#" class="swim-lane-placeholder" onclick="disappear(this)"><i class="fas fa-plus"></i> &nbspAdd a list</a>
+            <div class="swim-lane-namer">
+                <input class="list-title" type="text" placeholder="Enter list title..." autofocus>
+                <input class="add-list" type="button" onclick="addList()" value="Add List">
+                <a href="#"><i class="fas fa-times"></i></a>
+            </div>
         </div>
         <script src="script.js"></script>
     </body>
