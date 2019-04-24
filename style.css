@@ -241,6 +241,10 @@ nav a {
     background-color: rgba(0, 0, 0, .3);
 }
 
+.swim-lane-placeholder:active{
+    outline: none;
+}
+
 .swim-lane-placeholder i {
     font-size: 10px;
     vertical-align: 12%;
@@ -315,23 +319,31 @@ nav a {
     clear: both;
 }
 
+#new-lists {
+    display: flex;
+    align-items: flex-start;
+}
+
 /*--- JavaScript elements --*/
 .list {
+    margin-left: 8px;
+    border-radius: 3px;
+    background-color: #DFE3E6;
+    width: 263px;
+    max-width: 263px;
+    min-width: 263px;
+}
+.list-top {
     display: inline-block;
     color: #17394d;
-    background-color: #DFE3E6;
-    min-width: 263px;
-    margin-left: 8px;
     font-size: 14px;
     line-height: 20px;
-    border-radius: 3px;
-    padding: 8px;
     font-weight: 600;
-    max-height:200px;
     vertical-align: top;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    padding: 4px;
 }
 
 .list-button {
@@ -340,9 +352,83 @@ nav a {
     padding: 0;
     outline: none;
     cursor: pointer;
+    color: #798d99;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+}
+
+.list-button:hover{
+    color: #516b7a;
+    background-color: rgba(9,45,66,.13);
 }
 
 .list-span {
     max-width: 200px;
     word-break: break-all;
+    padding: 6px 8px;
+}
+
+.list-add {
+    width: 100%;
+    border: none;
+    border-radius: 0px 0px 3px 3px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+    color: #6b808c;
+    background-color: inherit;
+    padding: 10px 12px;
+}
+
+.list-add i {
+    font-size: 10px;
+    vertical-align: 15%;
+}
+
+.list-add:hover {
+    background-color:rgba(9,45,66,.13);
+    color: #17394d;
+    cursor: pointer;
+}
+
+.list-add:focus {
+    outline: none;
+}
+
+.card-namer {
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 0px 1px 1px #a5a5a5;
+    font-size: 14px;
+    line-height: 20px;
+    color: #17394d;
+}
+
+.card-namer:focus {
+    border: 2px solid #0079bf;
+    outline: none;
+    border-radius: 3px;
+    height: 50px;
+    text-align: start;
+}
+
+.new-card {
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
+    line-height: 20px;
+    color: #17394d;
+    margin-bottom: 8px;
+    cursor: pointer;
+    box-shadow: 0px 1px 1px #a5a5a5;
+    text-align: left;
 }
