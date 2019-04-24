@@ -95,7 +95,9 @@ function addCard(card, namer, id){
     card.innerHTML = name;
 }
 
+function replacePlaceholder(){
 
+}
 
 
 //==Experimental==//
