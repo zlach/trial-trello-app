@@ -54,17 +54,23 @@ function createEmptyList(list_name){
     new_list_span.setAttribute('id', 'list-span' + list_number);
     new_list_span.setAttribute('class', 'list-span');
     new_list_span.setAttribute('contenteditable', 'true');
-    // button to add functionality later//
-    var new_list_button = document.createElement('button');
-    new_list_button.setAttribute('id', 'list-button' + list_number);
-    new_list_button.setAttribute('class', 'list-button');
+    // // button to add functionality later//
+    // var new_list_button = document.createElement('button');
+    // new_list_button.setAttribute('id', 'list-button' + list_number);
+    // new_list_button.setAttribute('class', 'list-button');
     // add the list name via inherited variable//
     new_list_span.innerHTML = list_name;
     // add the button image (ellipsis)//
-    new_list_button.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
-    // put the span (list name) and button (ellipsis) in that top flex part//
+    // new_list_button.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+    //stick the button in the div for dropdown purposes//
+    var dropdown_container = document.createElement('div');
+    dropdown_container.setAttribute('id', 'dropdown-container' + list_number);
+    dropdown_container.setAttribute('class', 'dropdown-container');
+    dropdown_container.innerHTML = `<button id="list-button${list_number}" class="list-button"><i class="fas fa-ellipsis-h"></i></button><div style='display: none;'><a href='#'>Move List</a><a href='#'>Delete List</a></div>`;
+    console.log(dropdown_container);
+    // put the span (list name) and dropdown in that top flex part//
     new_list_top.appendChild(new_list_span);
-    new_list_top.appendChild(new_list_button);
+    new_list_top.appendChild(dropdown_container);
     // add the top part to the list//
     new_list.appendChild(new_list_top);
     //add empty middle section to add cards to later//

@@ -13,11 +13,11 @@
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-trophy"></i></a>
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-search"></i></a>
             </div>
-            <a href="#" class="nav-item heading"><!--this is causing the clickable area to be at flex1 so fix-->
+            <div class="nav-item heading"><!--(fixed)-->
                 <h1>
-                    <i class="fas fa-trophy"></i> Trelfaux
+                    <a href="#"><i class="fas fa-trophy"></i> Trelfaux</a>
                 </h1>
-            </a>
+            </div>
             <div class="nav-item-last">
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-plus"></i></a>
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-info-circle"></i></a>
@@ -48,7 +48,7 @@
                 <a href="#" onclick="replacePlaceholder()"><i class="fas fa-times"></i></a>
             </div>
         </div>
-        <div id="clickout-guy" onclick="replacePlaceholder()"></div>
+        <div id="clickout-guy" onclick="replacePlaceholder()"></div> <!--this messing up my horizontal scroll when activated-->
         <script src="script.js"></script>
     </body>
 </html>
