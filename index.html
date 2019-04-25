@@ -43,11 +43,12 @@
             </div>
             <button type="button" class="swim-lane-placeholder" onclick="disappear(this)"><i class="fas fa-plus"></i> &nbspAdd a list</button>
             <div class="swim-lane-namer">
-                <input class="list-title" type="text" placeholder="Enter list title..." autofocus>
+                <input class="list-title" id="list-title" type="text" placeholder="Enter list title..." autofocus>
                 <input class="add-list" type="button" onclick="addList()" value="Add List">
                 <a href="#"><i class="fas fa-times"></i></a>
             </div>
         </div>
+        <div id="clickout-guy" onclick="replacePlaceholder()"></div>
         <script src="script.js"></script>
     </body>
 </html>

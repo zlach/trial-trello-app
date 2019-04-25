@@ -228,6 +228,8 @@ nav a {
     height: 40px;
     line-height: 40px;
     width: 271px;
+    max-width: 271px;
+    min-width: 271px;
     vertical-align: bottom;
     padding: 0px 8px;
     background-color: rgba(0, 0, 0, .15);
@@ -258,6 +260,7 @@ nav a {
     margin-left: 8px;
     padding: 4px;
     display: none; /*begins hidden and will appear with js*/
+    z-index: 11;
 }
 
 .swim-lane-namer .list-title {
@@ -324,6 +327,16 @@ nav a {
     align-items: flex-start;
 }
 
+#clickout-guy {
+    z-index: 9;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
 /*--- JavaScript elements --*/
 .list {
     margin-left: 8px;
@@ -332,6 +345,7 @@ nav a {
     width: 263px;
     max-width: 263px;
     min-width: 263px;
+    z-index: 10;
 }
 .list-top {
     display: inline-block;
@@ -392,6 +406,10 @@ nav a {
     cursor: pointer;
 }
 
+.list-add:hover span {
+    text-decoration: underline;
+}
+
 .list-add:focus {
     outline: none;
 }
@@ -400,6 +418,7 @@ nav a {
     max-width: 100%;
     width: 100%;
     min-width: 100%;
+    min-height: 32px;
     box-sizing: border-box;
     border-radius: 3px;
     border: none;
@@ -432,6 +451,11 @@ nav a {
     box-shadow: 0 1px 0 rgba(9,45,66,.25);
     text-align: left;
     padding: 6px;
+}
+
+.new-card:focus {
+    outline: none;
+    border: 2px solid #0079bf;
 }
 
 .new-card:hover {

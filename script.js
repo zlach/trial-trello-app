@@ -1,3 +1,4 @@
+
 function disappear(item){
     item.style.display = "none";
     appear();
@@ -5,7 +6,11 @@ function disappear(item){
 
 function appear(){
     var element = document.querySelector('.swim-lane-namer');
+    var clickout = document.querySelector('#clickout-guy')
+    clickout.style.display = "block";
     element.style.display = "inline-block";
+    var element_input = document.getElementById('list-title');
+    element_input.focus();
 }
 
 /*--- Code below forms a new list when you create a 
@@ -18,7 +23,20 @@ function addList(){
         createEmptyList(list_name);
         document.querySelector('.list-title').value = '';
         document.querySelector('.list-title').focus();
+        // replacePlaceholder();
     }
+}
+
+function replacePlaceholder(){
+    
+    var namer = document.querySelector(".swim-lane-namer");
+    namer.style.display = "none";
+    var placeholder = document.querySelector('.swim-lane-placeholder');
+    placeholder.style.display = "inline-block";
+    // placeholder.innerHTML = "<i class='fas fa-plus'></i> &nbspAdd another list";
+
+    var clickout = document.querySelector('#clickout-guy');
+    clickout.style.display = 'none';
 }
 
 let list_number = 1;
@@ -58,13 +76,17 @@ function createEmptyList(list_name){
     var new_list_add = document.createElement('button');
     new_list_add.setAttribute('id', 'list-add' + list_number);
     new_list_add.setAttribute('class', 'list-add');
-    new_list_add.setAttribute('onclick', `nameCard("${new_cards.id}")`);
-    new_list_add.innerHTML = '<i class="fas fa-plus"></i> &nbsp<u>Add a card</u>';
+    new_list_add.setAttribute('onclick', `nameCard("${new_cards.id}")`); //function//
+    new_list_add.innerHTML = '<i class="fas fa-plus"></i> &nbsp<span>Add a card</span>';
+    //tie it all together and push it on out//
     new_list.appendChild(new_list_add);
     var new_lists = document.querySelector("#new-lists");
     new_lists.appendChild(new_list);
+    
     list_number += 1;
 }
+
+
 
 let card_number = 1;
 function nameCard(id){
@@ -76,12 +98,23 @@ function nameCard(id){
     new_card_namer.setAttribute('id', 'card-namer' + card_number);
     new_card_namer.setAttribute('class', 'card-namer');
     new_card_namer.setAttribute('placeholder', 'Enter a title for this card...');
-    new_card_namer.setAttribute('onchange', `addCard("${new_card.id}", "${new_card_namer.id}", "${id}")`);
+    new_card_namer.setAttribute('onchange', `addCard("${new_card.id}", "${new_card_namer.id}", "${id}")`); //function - maybe go back and change this functionality//
+    new_card_namer.setAttribute('onkeypress', `detectKey(event, "${new_card.id}", "${new_card_namer.id}", "${id}")`);//function
     var list_destination = document.getElementById(id);
     list_destination.style.padding = "0px 8px 8px 8px";
     list_destination.appendChild(new_card_namer);
     list_destination.appendChild(new_card);
+    // new_card_namer.focus();
     card_number += 1;
+}
+
+function detectKey(event, card, namer, id){
+    if(event.keyCode == 13){
+        addCard(card, namer, id);
+        nameCard(id);
+    } else {
+        return;
+    }    
 }
 
 function addCard(card, namer, id){
@@ -95,28 +128,33 @@ function addCard(card, namer, id){
     card.innerHTML = name;
 }
 
-function replacePlaceholder(){
+// let swim_lane_namer = document.querySelector(".swim-lane-namer");
 
-}
+// swim_lane_namer.addEventListener("focusout", replacePlaceholder);
+
+
 
 
 //==Experimental==//
 
 // document.body.addEventListener("click", (evt) => {
-//     const flyoutElement = document.getElementsByTagName("body");
+//     const flyoutElement = document.querySelector(".swim-lane-namer");
 //     let targetElement = evt.target; // clicked element
-
-//     do {
-//         if (targetElement == flyoutElement) {
-//             // This is a click inside. Do nothing, just return.
-//             return;
-//         }
-//         // Go up the DOM
-//         targetElement = targetElement.parentNode;
-//     } while (targetElement);
+//     if (namer_displayed){
+//         do {
+//             if (targetElement == flyoutElement) {
+//                 // This is a click inside. Do nothing, just return.
+//                 return;
+//             }
+//             // Go up the DOM
+//             targetElement = targetElement.parentNode;
+//         } while (targetElement);
 
 //     // This is a click outside.
-//     console.log(document.querySelector('.swim-lane-namer'));
-//     document.querySelector(".swim-lane-namer").style.display = "none";
-//     document.querySelector('.swim-lane-placeholder').style.display = "inline-block;"
+//     replacePlaceholder();
+//     } else {
+//         return;
+//     }
 // });
+
+//==Experimental above==//
