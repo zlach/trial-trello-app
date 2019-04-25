@@ -13,7 +13,7 @@
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-trophy"></i></a>
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-search"></i></a>
             </div>
-            <a href="#" class="nav-item heading">
+            <a href="#" class="nav-item heading"><!--this is causing the clickable area to be at flex1 so fix-->
                 <h1>
                     <i class="fas fa-trophy"></i> Trelfaux
                 </h1>
@@ -37,7 +37,7 @@
             <a href="#" id="subnav-invite">Invite</a>
             <a href="#" id="show-menu"><i class="fas fa-ellipsis-h"></i> &nbsp<u>Show Menu</u></a>
         </div>
-        <div id="list-group">
+        <div id="list-group"> <!--could try and put onclick here to replacePlaceholder-->
             <div id="new-lists">
 
             </div>
@@ -45,7 +45,7 @@
             <div class="swim-lane-namer">
                 <input class="list-title" id="list-title" type="text" placeholder="Enter list title..." autofocus>
                 <input class="add-list" type="button" onclick="addList()" value="Add List">
-                <a href="#"><i class="fas fa-times"></i></a>
+                <a href="#" onclick="replacePlaceholder()"><i class="fas fa-times"></i></a>
             </div>
         </div>
         <div id="clickout-guy" onclick="replacePlaceholder()"></div>

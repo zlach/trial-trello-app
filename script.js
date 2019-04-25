@@ -104,14 +104,21 @@ function nameCard(id){
     list_destination.style.padding = "0px 8px 8px 8px";
     list_destination.appendChild(new_card_namer);
     list_destination.appendChild(new_card);
-    // new_card_namer.focus();
+    new_card_namer.focus();
+    new_card_namer.value = '';
     card_number += 1;
 }
 
 function detectKey(event, card, namer, id){
     if(event.keyCode == 13){
-        addCard(card, namer, id);
-        nameCard(id);
+        event.preventDefault();
+        var named = document.getElementById(namer);
+        if (named.value == ''){
+            return;
+        } else {
+            addCard(card, namer, id);
+            nameCard(id);
+        }
     } else {
         return;
     }    
