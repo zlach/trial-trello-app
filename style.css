@@ -1,5 +1,5 @@
 body {
-    background-color: #b5bdaa;
+    background-color: #8a075a4d;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -284,7 +284,7 @@ nav a {
     background-color: #5aac44;
     line-height: 20px;
     font-size: 14px;
-    padding: 4px 12px;
+    padding: 5px 12px;
     border-radius: 3px;
     margin-top: 4px;
     color: white;
@@ -343,45 +343,56 @@ nav a {
     display: none;
     position: absolute;
     z-index: 50;
-    height: 350px;
-    border: 2px solid red;
+    height: 150px;
+    box-shadow: 0 8px 16px -4px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
     background-color: white;
     border-radius: 3px;
     width: 300px;
 }
 
-#list-dropdown #d1 {
+#list-dropdown-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(9,30,66,.13);
     color: #6b778c;
-    text-align: center;
-    position: relative;
-    vertical-align: bottom;
-}
-
-#list-dropdown #d1 span {
-    line-height: 40px;
     font-size: 14px;
+    line-height: 40px;
+    width: 250px;
+    margin: 0px auto;
 }
 
-#list-dropdown #d1 a {
-    position: absolute;
-    right: 0px;
-    line-height: 40px;
-    margin-right: 20px;
-    margin-top: 1px;
+#list-dropdown-top a {
+    color: #6b778c;
     text-decoration: none;
-    color: #6b778c;
-    font-size: 14px;
 }
 
-#list-dropdown #d1 a:hover {
+#list-dropdown-top a:hover {
     color: #505f79;
 }
 
-#list-dropdown #d2 {
-    border-top: 1px solid rgba(9,30,66,.13);
+
+#list-dropdown-bottom {
     text-align: left;
-    margin: 0px 15px;
     color: #172b4d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#list-d-move {
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 20px;
+    display: block;
+    padding: 5px 25px;
+    margin: 10px 0px;
+}
+
+#list-d-move:hover {
+    color: white;
+    background-color: #298fca;
 }
 
 
@@ -433,7 +444,7 @@ nav a {
     padding: 6px 8px;
 }
 
-.list-add {
+.card-add {
     width: 100%;
     border: none;
     border-radius: 0px 0px 3px 3px;
@@ -445,22 +456,22 @@ nav a {
     padding: 10px 12px;
 }
 
-.list-add i {
+.card-add i {
     font-size: 10px;
     vertical-align: 15%;
 }
 
-.list-add:hover {
+.card-add:hover {
     background-color:rgba(9,45,66,.13);
     color: #17394d;
     cursor: pointer;
 }
 
-.list-add:hover span {
+.card-add:hover span {
     text-decoration: underline;
 }
 
-.list-add:focus {
+.card-add:focus {
     outline: none;
 }
 
@@ -508,7 +519,7 @@ nav a {
 }
 
 .new-card:hover {
-    background-color: #f9f9f9;
+    background-color: #f8f8f8;
 }
 
 .dropdown-container {
@@ -522,3 +533,6 @@ nav a {
     background-color: white;
 }
 
+#list-d-back {
+    visibility: hidden;
+}

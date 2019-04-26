@@ -6,8 +6,8 @@ function disappear(item){
 
 function appear(){
     var element = document.querySelector('.swim-lane-namer');
-    var clickout = document.querySelector('#clickout-guy')
-    clickout.style.display = "block";
+    // var clickout = document.querySelector('#clickout-guy')
+    // clickout.style.display = "block";
     element.style.display = "inline-block";
     var element_input = document.getElementById('list-title');
     element_input.focus();
@@ -35,8 +35,8 @@ function replacePlaceholder(){
     placeholder.style.display = "inline-block";
     // placeholder.innerHTML = "<i class='fas fa-plus'></i> &nbspAdd another list";
 
-    var clickout = document.querySelector('#clickout-guy');
-    clickout.style.display = 'none';
+    // var clickout = document.querySelector('#clickout-guy');
+    // clickout.style.display = 'none';
 }
 
 let list_number = 1;
@@ -83,8 +83,8 @@ function createEmptyList(list_name){
     new_list.appendChild(new_cards);
     // add a bottom button that will activate new card//
     var new_list_add = document.createElement('button');
-    new_list_add.setAttribute('id', 'list-add' + list_number);
-    new_list_add.setAttribute('class', 'list-add');
+    new_list_add.setAttribute('id', 'card-add' + list_number);
+    new_list_add.setAttribute('class', 'card-add');
     new_list_add.setAttribute('onclick', `nameCard("${new_cards.id}")`); //function//
     new_list_add.innerHTML = '<i class="fas fa-plus"></i> &nbsp<span>Add a card</span>';
     //tie it all together and push it on out//
@@ -107,16 +107,27 @@ function nameCard(id){
     new_card_namer.setAttribute('id', 'card-namer' + card_number);
     new_card_namer.setAttribute('class', 'card-namer');
     new_card_namer.setAttribute('placeholder', 'Enter a title for this card...');
-    new_card_namer.setAttribute('onchange', `addCard("${new_card.id}", "${new_card_namer.id}", "${id}")`); //function - maybe go back and change this functionality//
+    new_card_namer.setAttribute('onblur', `cardBlur("${new_card.id}", "${new_card_namer.id}", "${id}")`); //function - maybe go back and change this functionality//
     new_card_namer.setAttribute('onkeypress', `detectKey(event, "${new_card.id}", "${new_card_namer.id}", "${id}")`);//function
     var list_destination = document.getElementById(id);
-    list_destination.style.padding = "0px 8px 8px 8px";
+    list_destination.style.padding = "0px 8px";
     list_destination.appendChild(new_card_namer);
     list_destination.appendChild(new_card);
     new_card_namer.focus();
     new_card_namer.value = '';
     card_number += 1;
 }
+
+function cardBlur(card, namer, id) {
+    var named = document.getElementById(namer);
+    var name = named.value;
+    if (name == ''){
+        named.style.display = 'none';
+    } else{
+        addCard(card, namer, id);
+    }
+}
+
 
 function detectKey(event, card, namer, id){
     if(event.keyCode == 13){
@@ -150,7 +161,19 @@ function addCard(card, namer, id){
     var card = document.getElementById(card);
     card.style.display = "block";
     card.innerHTML = name;
+    // console.log(id[id.length - 1]);
+    // showAddCardButton(id);
 }
+
+// function showAddCardButton(id){
+//     var bottom = document.getElementById('card-add' + id[id.length - 1]);
+//     bottom.style.display = "none";
+//     var new_bottom = document.createElement('div');
+//     new_bottom.innerHTML = "<input type='button' value='fooku'/>";
+//     var target = document.getElementById('list' + id[id.length - 1]);
+//     target.insertAdjacentHTML('beforeend', new_bottom);
+// }
+
 
 // let swim_lane_namer = document.querySelector(".swim-lane-namer");
 
@@ -167,26 +190,33 @@ function listDropdown (thing){
     dropdown.style.display = "block";
 }
 
+function goAwayDroppy (){
+    var dropdown = document.getElementById('list-dropdown');
+    dropdown.style.display = "none";
+}
+
 //==Experimental==//
 
-// document.body.addEventListener("click", (evt) => {
-//     const flyoutElement = document.querySelector(".swim-lane-namer");
-//     let targetElement = evt.target; // clicked element
-//     if (namer_displayed){
-//         do {
-//             if (targetElement == flyoutElement) {
-//                 // This is a click inside. Do nothing, just return.
-//                 return;
-//             }
-//             // Go up the DOM
-//             targetElement = targetElement.parentNode;
-//         } while (targetElement);
+/*--- This is running on every click which may not be great--*/
 
-//     // This is a click outside.
-//     replacePlaceholder();
-//     } else {
-//         return;
-//     }
-// });
+document.body.addEventListener("click", (evt) => {
+    const flyoutElement = document.querySelector(".swim-lane-namer");
+    let targetElement = evt.target; // clicked element
+    const fly = document.querySelector('.swim-lane-placeholder');
+    const fly_guy = document.querySelector('#list-dropdown');
+    // const fly_lists = document.getElementsByClassName('list');
+        do {
+            if (targetElement == flyoutElement || targetElement == fly || targetElement == fly_guy || targetElement.className == 'list') {
+                // This is a click inside. Do nothing, just return.
+                return;
+            }
+            // Go up the DOM
+            targetElement = targetElement.parentNode;
+        } while (targetElement);
+
+    // This is a click outside.
+    replacePlaceholder();
+    goAwayDroppy ();
+});
 
 //==Experimental above==//

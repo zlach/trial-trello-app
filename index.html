@@ -50,11 +50,13 @@
         </div>
         <div id="clickout-guy" onclick="replacePlaceholder()"></div> <!--this messing up my horizontal scroll when activated-->
         <div id="list-dropdown">
-            <div id="d1">
-                <span>List Actions</span><a href="#"><i class="fas fa-times"></i></a>
-                <div id="d2">
-                    Move List...
-                </div>
+            <div id="list-dropdown-top">
+                <a id="list-d-back" href="#"><i class="fas fa-arrow-left"></i></a>
+                <span>List Actions</span>
+                <a id="list-d-x" href="#" onclick="goAwayDroppy()"><i class="fas fa-times"></i></a>
+            </div>
+            <div id="list-dropdown-bottom">
+                <a id="list-d-move" href="#">Move List...</a>
             </div>
         </div>
         <script src="script.js"></script>
