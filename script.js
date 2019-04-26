@@ -55,22 +55,25 @@ function createEmptyList(list_name){
     new_list_span.setAttribute('class', 'list-span');
     new_list_span.setAttribute('contenteditable', 'true');
     // // button to add functionality later//
-    // var new_list_button = document.createElement('button');
-    // new_list_button.setAttribute('id', 'list-button' + list_number);
-    // new_list_button.setAttribute('class', 'list-button');
+    var new_list_button = document.createElement('button');
+    new_list_button.setAttribute('id', 'list-button' + list_number);
+    new_list_button.setAttribute('class', 'list-button');
+    new_list_button.setAttribute('onclick', 'listDropdown(this)'); //function
     // add the list name via inherited variable//
     new_list_span.innerHTML = list_name;
     // add the button image (ellipsis)//
-    // new_list_button.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
-    //stick the button in the div for dropdown purposes//
-    var dropdown_container = document.createElement('div');
-    dropdown_container.setAttribute('id', 'dropdown-container' + list_number);
-    dropdown_container.setAttribute('class', 'dropdown-container');
-    dropdown_container.innerHTML = `<button id="list-button${list_number}" class="list-button"><i class="fas fa-ellipsis-h"></i></button><div style='display: none;'><a href='#'>Move List</a><a href='#'>Delete List</a></div>`;
-    console.log(dropdown_container);
-    // put the span (list name) and dropdown in that top flex part//
+    new_list_button.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+    // //stick the button in the div for dropdown purposes//
+    // var dropdown_container = document.createElement('div');
+    // dropdown_container.setAttribute('id', 'dropdown-container' + list_number);
+    // dropdown_container.setAttribute('class', 'dropdown-container');
+    // dropdown_container.innerHTML = `<button id="list-button${list_number}" class="list-button" onclick="someShit('dropdown-container${list_number}')"><i class="fas fa-ellipsis-h"></i></button><div><a href='#'>Move List</a><a href='#'>Delete List</a></div>`;
+    // console.log(dropdown_container);
+
+
+    // put the span (list name) and button in that top flex part//
     new_list_top.appendChild(new_list_span);
-    new_list_top.appendChild(dropdown_container);
+    new_list_top.appendChild(new_list_button);
     // add the top part to the list//
     new_list.appendChild(new_list_top);
     //add empty middle section to add cards to later//
@@ -130,6 +133,14 @@ function detectKey(event, card, namer, id){
     }    
 }
 
+function enterDirect(evt){
+    if(evt.keyCode == 13){
+        addList();
+    } else {
+        return;
+    }
+}
+
 function addCard(card, namer, id){
     var list_destination = document.getElementById(id);
     list_destination.style.padding = "0px 8px";
@@ -146,7 +157,15 @@ function addCard(card, namer, id){
 // swim_lane_namer.addEventListener("focusout", replacePlaceholder);
 
 
-
+function listDropdown (thing){
+    console.log(thing.id);
+    var button = document.getElementById(thing.id);
+    var dropdown = document.getElementById('list-dropdown');
+    console.log(button.offsetTop);
+    dropdown.style.top = button.offsetTop + 34 + 'px';
+    dropdown.style.left = button.offsetLeft + 'px';
+    dropdown.style.display = "block";
+}
 
 //==Experimental==//
 

@@ -1,5 +1,5 @@
 body {
-    background-color: #abb898;
+    background-color: #b5bdaa;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -227,9 +227,9 @@ nav a {
     font-size: 14px;
     height: 40px;
     line-height: 40px;
-    width: 271px;
-    max-width: 271px;
-    min-width: 271px;
+    width: 275px;
+    max-width: 275px;
+    min-width: 275px;
     vertical-align: bottom;
     padding: 0px 8px;
     background-color: rgba(0, 0, 0, .15);
@@ -255,7 +255,9 @@ nav a {
 
 .swim-lane-namer {
     background-color: #DFE3E6;
-    min-width: 263px;
+    width: 271px;
+    max-width: 271px;
+    min-width: 271px;
     border-radius: 3px;
     margin-left: 8px;
     padding: 4px;
@@ -335,8 +337,53 @@ nav a {
     width: 100vw;
     height: calc(100vh - 90px);
     display: none;
-    /* background-color: rgba(9,45,66,.13); */
 }
+
+#list-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    height: 350px;
+    border: 2px solid red;
+    background-color: white;
+    border-radius: 3px;
+    width: 300px;
+}
+
+#list-dropdown #d1 {
+    color: #6b778c;
+    text-align: center;
+    position: relative;
+    vertical-align: bottom;
+}
+
+#list-dropdown #d1 span {
+    line-height: 40px;
+    font-size: 14px;
+}
+
+#list-dropdown #d1 a {
+    position: absolute;
+    right: 0px;
+    line-height: 40px;
+    margin-right: 20px;
+    margin-top: 1px;
+    text-decoration: none;
+    color: #6b778c;
+    font-size: 14px;
+}
+
+#list-dropdown #d1 a:hover {
+    color: #505f79;
+}
+
+#list-dropdown #d2 {
+    border-top: 1px solid rgba(9,30,66,.13);
+    text-align: left;
+    margin: 0px 15px;
+    color: #172b4d;
+}
+
 
 /*--- JavaScript elements --*/
 .list {
@@ -382,7 +429,7 @@ nav a {
 
 .list-span {
     max-width: 200px;
-    word-break: break-all;
+    word-break: break-word;
     padding: 6px 8px;
 }
 
@@ -463,3 +510,15 @@ nav a {
 .new-card:hover {
     background-color: #f9f9f9;
 }
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-container div {
+    display: none;
+    position: absolute;
+    background-color: white;
+}
+
