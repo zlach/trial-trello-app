@@ -136,7 +136,8 @@ function detectKey(event, card, namer, id){
         if (named.value == ''){
             return;
         } else {
-            addCard(card, namer, id);
+            var name = document.getElementById(namer);
+            name.blur(); //blur instead of addCard to prevent calling addCard twice (once on blur and once on this)
             nameCard(id);
         }
     } else {
@@ -158,9 +159,19 @@ function addCard(card, namer, id){
     var named = document.getElementById(namer);
     var name = named.value;
     named.style.display = "none";
+    var spanny = document.createElement('span');
+    spanny.innerHTML = name;
+    var butt = document.createElement('button');
+    // NEED TO SET ATTRIBUTES!!!
+    butt.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+    // butt.style.display = "none";
     var card = document.getElementById(card);
-    card.style.display = "block";
-    card.innerHTML = name;
+    card.style.display = "flex";
+    // console.log('in?');
+    card.append(spanny);
+    card.append(butt);
+    card.style.justifyContent = 'space-between';
+
     // console.log(id[id.length - 1]);
     // showAddCardButton(id);
 }
@@ -181,11 +192,9 @@ function addCard(card, namer, id){
 
 
 function listDropdown (thing){
-    console.log(thing.id);
     var button = document.getElementById(thing.id);
     var dropdown = document.getElementById('list-dropdown');
-    console.log(button.offsetTop);
-    dropdown.style.top = button.offsetTop + 34 + 'px';
+    dropdown.style.top = button.offsetTop + 34 + 'px'; //this offset doesn't work properly on small screen
     dropdown.style.left = button.offsetLeft + 'px';
     dropdown.style.display = "block";
 }
@@ -194,6 +203,9 @@ function goAwayDroppy (){
     var dropdown = document.getElementById('list-dropdown');
     dropdown.style.display = "none";
 }
+
+
+
 
 //==Experimental==//
 

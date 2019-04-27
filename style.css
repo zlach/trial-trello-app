@@ -513,6 +513,28 @@ nav a {
     padding: 6px;
 }
 
+.new-card button {
+    display: none;
+}
+
+.new-card:hover button {
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 0px;
+    color: #7a869a;
+    cursor: pointer;
+    background-color: inherit;
+}
+
+.new-card button:hover{
+    color: #505f79;
+    background-color: #ebecf0;
+}
+
 .new-card:focus {
     outline: none;
     border: 2px solid #0079bf;
