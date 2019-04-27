@@ -1,5 +1,5 @@
 body {
-    background-color: #8a075a4d;
+    background-color: #7aadbb;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -395,6 +395,10 @@ nav a {
     background-color: #298fca;
 }
 
+#list-d-back {
+    visibility: hidden;
+}
+
 
 /*--- JavaScript elements --*/
 .list {
@@ -553,8 +557,4 @@ nav a {
     display: none;
     position: absolute;
     background-color: white;
-}
-
-#list-d-back {
-    visibility: hidden;
 }

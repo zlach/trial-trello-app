@@ -27,6 +27,8 @@ function addList(){
     }
 }
 
+let list_array = [];
+
 function replacePlaceholder(){
     
     var namer = document.querySelector(".swim-lane-namer");
@@ -92,6 +94,7 @@ function createEmptyList(list_name){
     var new_lists = document.querySelector("#new-lists");
     new_lists.appendChild(new_list);
     
+    list_array.push(new_list);
     list_number += 1;
 }
 
@@ -204,6 +207,30 @@ function goAwayDroppy (){
     dropdown.style.display = "none";
 }
 
+
+function moveListMenu() {
+    var spanny = document.getElementById('list-d-text');
+    spanny.innerHTML = "Move List";
+    var back = document.getElementById('list-d-back');
+    back.style.visibility = "visible";
+    var movie = document.getElementById('list-d-move');
+    movie.style.display = "none";
+    var bottom = document.getElementById('list-dropdown-bottom');
+    var butt_left = document.createElement('button');
+    butt_left.setAttribute('type', 'button');
+    butt_left.setAttribute('id', 'list-left');
+    butt_left.setAttribute('onclick', 'listLeft()')
+    butt_left.classList.add('gray-butt', 'gray-butt-small');
+    butt_left.innerHTML = 'Move Left';
+    var butt_right = document.createElement('button');
+    butt_right.setAttribute('type', 'button');
+    butt_right.setAttribute('id', 'list-right');
+    butt_right.setAttribute('onclick', 'listRight()')
+    butt_right.classList.add('gray-butt', 'gray-butt-small');
+    butt_right.innerHTML = 'Move Right';
+    bottom.append(butt_left);
+    bottom.append(butt_right);
+}
 
 
 
