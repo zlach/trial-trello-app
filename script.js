@@ -72,7 +72,7 @@ function createEmptyList(list_name){
     // dropdown_container.setAttribute('id', 'dropdown-container' + list_number);
     // dropdown_container.setAttribute('class', 'dropdown-container');
     // dropdown_container.innerHTML = `<button id="list-button${list_number}" class="list-button" onclick="someShit('dropdown-container${list_number}')"><i class="fas fa-ellipsis-h"></i></button><div><a href='#'>Move List</a><a href='#'>Delete List</a></div>`;
-    // console.log(dropdown_container);
+
 
 
     // put the span (list name) and button in that top flex part//
@@ -172,7 +172,6 @@ function addCard(card, namer, id){
     // butt.style.display = "none";
     var card = document.getElementById(card);
     card.style.display = "flex";
-    // console.log('in?');
     card.append(spanny);
     card.append(butt);
     card.style.justifyContent = 'space-between';
@@ -197,7 +196,12 @@ function addCard(card, namer, id){
 
 
 function listDropdown (thing){
+    resetListDropdown();
+    var proxy = document.getElementById('list-proxy');
     var button = document.getElementById(thing.id);
+    var list_number = button.id.slice(11);
+    proxy.innerHTML = list_number;
+    console.log(proxy);
     var dropdown = document.getElementById('list-dropdown');
     var scroll = document.getElementById('list-group');
     var scrollLeft = scroll.scrollLeft;
@@ -259,16 +263,28 @@ function moveListMenu() {
 
 
 function moveList(){
-    
+    var list_number = document.getElementById('list-proxy').textContent;
+    return false;
 }
 
 function ListOptions(){
     var select = document.createElement('select');
+    var current = document.getElementById('list-proxy').textContent;
+    current = current - 1;
+    
     for (let i = 0; i < list_array.length;i++){
-        var option = document.createElement('option')
-        option.innerHTML = i + 1;
-        select.append(option);
+        if ( i == current){
+            var option = document.createElement('option')
+            option.innerHTML = (i + 1) + " (current)";
+            option.setAttribute('selected', 'selected');
+            select.append(option);
+        } else {
+            var option = document.createElement('option')
+            option.innerHTML = i + 1;
+            select.append(option);
+        }
     }
+
     return select;
 }
 

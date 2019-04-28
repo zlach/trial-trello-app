@@ -445,6 +445,10 @@ nav a {
     visibility: hidden;
 }
 
+#list-proxy {
+    display: none;
+}
+
 
 /*--- JavaScript elements --*/
 .list {
