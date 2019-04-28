@@ -238,7 +238,7 @@ function moveListMenu() {
     submit.setAttribute('class', 'green-butt');
     submit.setAttribute('type', 'submit');
     var form = document.createElement('form');
-    form.setAttribute('onsubmit', 'moveList();');
+    form.setAttribute('onsubmit', 'return moveList();');
     var myDiv = document.createElement('div');
     myDiv.append(span);
     myDiv.append(select);

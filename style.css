@@ -441,6 +441,22 @@ nav a {
     background-color: #298fca;
 }
 
+#list-d-delete {
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 20px;
+    display: block;
+    padding: 5px 25px;
+    margin: 10px 0px;
+}
+
+#list-d-delete:hover {
+    color: white;
+    background-color: #298fca;
+}
+
 #list-d-back {
     visibility: hidden;
 }
