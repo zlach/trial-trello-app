@@ -292,6 +292,7 @@ function reprintLists(){
     var lists = document.getElementById('new-lists');
     lists.innerHTML = '';
     for (let list of list_array){
+        console.log(list_array);
         lists.append(list);
     }
 }
