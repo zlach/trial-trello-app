@@ -219,9 +219,24 @@ function moveListMenu() {
     back.style.visibility = "visible";
     var movie = document.getElementById('list-d-move');
     movie.style.display = "none";
-    var bottom = document.getElementById('list-dropdown-bottom');
+    var span = document.createElement('span');
+    span.innerHTML = 'Position:';
+    var bottom_old = document.getElementById('list-dropdown-bottom');
+    bottom_old.style.display = "none";
+    var bottom = document.getElementById('list-dropdown-bottom2');
+    bottom.style.display = "flex";
     var select = new ListOptions();
-    bottom.append(select);
+    var submit = document.createElement('input');
+    submit.setAttribute('class', 'green-butt');
+    submit.setAttribute('type', 'submit');
+    var form = document.createElement('form');
+    form.setAttribute('onsubmit', 'moveList();');
+    var myDiv = document.createElement('div');
+    myDiv.append(span);
+    myDiv.append(select);
+    form.append(myDiv);
+    form.append(submit);
+    bottom.append(form);
 
     
 
@@ -242,6 +257,11 @@ function moveListMenu() {
     // bottom.append(butt_right);
 }
 
+
+function moveList(){
+    
+}
+
 function ListOptions(){
     var select = document.createElement('select');
     for (let i = 0; i < list_array.length;i++){
@@ -252,6 +272,20 @@ function ListOptions(){
     return select;
 }
 
+
+function resetListDropdown(){
+    var back = document.getElementById('list-d-back');
+    back.style.visibility = "hidden";
+    var spanny = document.getElementById('list-d-text');
+    spanny.innerHTML = "List Actions";
+    var movie = document.getElementById('list-d-move');
+    movie.style.display = "block";
+    var bottom_old = document.getElementById('list-dropdown-bottom');
+    bottom_old.style.display = "initial";
+    var bottom = document.getElementById('list-dropdown-bottom2');
+    bottom.style.display = "none";
+    bottom.innerHTML = '';
+}
 
 //==Experimental==//
 
@@ -273,6 +307,8 @@ document.body.addEventListener("click", (evt) => {
         } while (targetElement);
 
     // This is a click outside.
+    
+    resetListDropdown();
     replacePlaceholder();
     goAwayDroppy ();
 });
