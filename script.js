@@ -200,8 +200,12 @@ function listDropdown (thing){
     var proxy = document.getElementById('list-proxy');
     var button = document.getElementById(thing.id);
     var list_number = button.id.slice(11);
-    proxy.innerHTML = list_number;
-    console.log(proxy);
+    for (let i = 0;i < list_array.length;i++){
+        if (list_array[i].id == ('list' + list_number)){
+            proxy.innerHTML = i + 1;
+        }
+    }
+
     var dropdown = document.getElementById('list-dropdown');
     var scroll = document.getElementById('list-group');
     var scrollLeft = scroll.scrollLeft;
@@ -264,7 +268,32 @@ function moveListMenu() {
 
 function moveList(){
     var list_number = document.getElementById('list-proxy').textContent;
+    var index = list_number - 1;
+    var selected = document.forms[0].children[0].children[1].options[document.forms[0].children[0].children[1].selectedIndex].value;
+    selected = selected - 1;
+    console.log(selected);
+    if (selected[selected.length - 1] == ')'){
+        return false;
+    } else {
+        for (let i = 0; i < list_array.length;i++){
+            if (i == index){
+                let move = list_array.splice(i, 1)[0];
+                list_array.splice(selected, 0, move);
+                console.log(list_array);
+            }
+        }
+    }
+    goAwayDroppy();
+    reprintLists();
     return false;
+}
+
+function reprintLists(){
+    var lists = document.getElementById('new-lists');
+    lists.innerHTML = '';
+    for (let list of list_array){
+        lists.append(list);
+    }
 }
 
 function ListOptions(){
