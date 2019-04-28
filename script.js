@@ -16,6 +16,8 @@ function appear(){
 /*--- Code below forms a new list when you create a 
 name and hit the green button, "Add List" --*/
 function addList(){
+    var byebye = document.getElementById('list-dropdown');
+    byebye.style.display = "none";
     var list_name = document.querySelector('.list-title').value;
     if (list_name == ''){
         return;
@@ -197,8 +199,10 @@ function addCard(card, namer, id){
 function listDropdown (thing){
     var button = document.getElementById(thing.id);
     var dropdown = document.getElementById('list-dropdown');
-    dropdown.style.top = button.offsetTop + 34 + 'px'; //this offset doesn't work properly on small screen
-    dropdown.style.left = button.offsetLeft + 'px';
+    var scroll = document.getElementById('list-group');
+    var scrollLeft = scroll.scrollLeft;
+    dropdown.style.top = button.offsetTop + 34 + 'px';
+    dropdown.style.left = (button.offsetLeft - scrollLeft) + 'px';
     dropdown.style.display = "block";
 }
 
@@ -216,22 +220,37 @@ function moveListMenu() {
     var movie = document.getElementById('list-d-move');
     movie.style.display = "none";
     var bottom = document.getElementById('list-dropdown-bottom');
-    var butt_left = document.createElement('button');
-    butt_left.setAttribute('type', 'button');
-    butt_left.setAttribute('id', 'list-left');
-    butt_left.setAttribute('onclick', 'listLeft()')
-    butt_left.classList.add('gray-butt', 'gray-butt-small');
-    butt_left.innerHTML = 'Move Left';
-    var butt_right = document.createElement('button');
-    butt_right.setAttribute('type', 'button');
-    butt_right.setAttribute('id', 'list-right');
-    butt_right.setAttribute('onclick', 'listRight()')
-    butt_right.classList.add('gray-butt', 'gray-butt-small');
-    butt_right.innerHTML = 'Move Right';
-    bottom.append(butt_left);
-    bottom.append(butt_right);
+    var select = new ListOptions();
+    bottom.append(select);
+
+    
+
+
+    // var butt_left = document.createElement('button');
+    // butt_left.setAttribute('type', 'button');
+    // butt_left.setAttribute('id', 'list-left');
+    // butt_left.setAttribute('onclick', 'listLeft()')
+    // butt_left.classList.add('gray-butt', 'gray-butt-small');
+    // butt_left.innerHTML = 'Move Left';
+    // var butt_right = document.createElement('button');
+    // butt_right.setAttribute('type', 'button');
+    // butt_right.setAttribute('id', 'list-right');
+    // butt_right.setAttribute('onclick', 'listRight()')
+    // butt_right.classList.add('gray-butt', 'gray-butt-small');
+    // butt_right.innerHTML = 'Move Right';
+    // bottom.append(butt_left);
+    // bottom.append(butt_right);
 }
 
+function ListOptions(){
+    var select = document.createElement('select');
+    for (let i = 0; i < list_array.length;i++){
+        var option = document.createElement('option')
+        option.innerHTML = i + 1;
+        select.append(option);
+    }
+    return select;
+}
 
 
 //==Experimental==//
