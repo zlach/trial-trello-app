@@ -425,6 +425,37 @@ nav a {
     margin-top: 12px
 }
 
+#list-dropdown-bottom3 {
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#list-yes-no input{
+    display: inline-block;
+    width: 55px;
+    padding: 5px 0px;
+    margin: 0px 20px;
+}
+
+#list-yes-no {
+    padding: 15px;
+}
+
+#sub-span {
+    color: #6b778c;
+    font-size: 10px;
+    font-weight: 200;
+}
+
+#top-span {
+    padding-top: 15px;
+}
+
+
 #list-d-move {
     color: #172b4d;
     font-size: 14px;
@@ -637,4 +668,8 @@ nav a {
     text-align: center;
     cursor: pointer;
     display: block;
+}
+
+.green-butt:hover {
+    background-color: #519839;
 }

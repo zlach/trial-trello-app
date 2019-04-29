@@ -219,14 +219,43 @@ function goAwayDroppy (){
     dropdown.style.display = "none";
 }
 
+function deleteListMenu() {
+    var bottom_old = document.getElementById('list-dropdown-bottom');
+    bottom_old.style.display = "none";
+    var spanny = document.getElementById('list-d-text');
+    spanny.innerHTML = "Delete List";
+    var back = document.getElementById('list-d-back');
+    back.style.visibility = "visible";
+    var span = document.createElement('span');
+    span.setAttribute('id', 'top-span')
+    span.innerHTML = 'Are you sure you want to delete this list?';
+    var sub_span = document.createElement('span');
+    sub_span.setAttribute('id', 'sub-span');
+    sub_span.innerHTML = '(This action cannot be undone)';
+    var button_container = document.createElement('div');
+    button_container.setAttribute('id', 'list-yes-no');
+    var yea = document.createElement('input');
+    yea.setAttribute('class', 'green-butt');
+    yea.setAttribute('type', 'button');
+    yea.setAttribute('value', 'Yes');
+    var nay = document.createElement('input');
+    nay.setAttribute('class', 'green-butt');
+    nay.setAttribute('type', 'button');
+    nay.setAttribute('value', 'No');
+    button_container.append(yea);
+    button_container.append(nay);
+    var bottom = document.getElementById('list-dropdown-bottom3');
+    bottom.style.display = "flex";
+    bottom.append(span);
+    bottom.append(sub_span);
+    bottom.append(button_container);
+}
 
 function moveListMenu() {
     var spanny = document.getElementById('list-d-text');
     spanny.innerHTML = "Move List";
     var back = document.getElementById('list-d-back');
     back.style.visibility = "visible";
-    var movie = document.getElementById('list-d-move');
-    movie.style.display = "none";
     var span = document.createElement('span');
     span.innerHTML = 'Position:';
     var bottom_old = document.getElementById('list-dropdown-bottom');
@@ -245,24 +274,6 @@ function moveListMenu() {
     form.append(myDiv);
     form.append(submit);
     bottom.append(form);
-
-    
-
-
-    // var butt_left = document.createElement('button');
-    // butt_left.setAttribute('type', 'button');
-    // butt_left.setAttribute('id', 'list-left');
-    // butt_left.setAttribute('onclick', 'listLeft()')
-    // butt_left.classList.add('gray-butt', 'gray-butt-small');
-    // butt_left.innerHTML = 'Move Left';
-    // var butt_right = document.createElement('button');
-    // butt_right.setAttribute('type', 'button');
-    // butt_right.setAttribute('id', 'list-right');
-    // butt_right.setAttribute('onclick', 'listRight()')
-    // butt_right.classList.add('gray-butt', 'gray-butt-small');
-    // butt_right.innerHTML = 'Move Right';
-    // bottom.append(butt_left);
-    // bottom.append(butt_right);
 }
 
 
@@ -324,8 +335,6 @@ function resetListDropdown(){
     back.style.visibility = "hidden";
     var spanny = document.getElementById('list-d-text');
     spanny.innerHTML = "List Actions";
-    var movie = document.getElementById('list-d-move');
-    movie.style.display = "block";
     var bottom_old = document.getElementById('list-dropdown-bottom');
     bottom_old.style.display = "initial";
     var bottom = document.getElementById('list-dropdown-bottom2');
