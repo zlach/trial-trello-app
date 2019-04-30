@@ -110,6 +110,7 @@ function nameCard(id){
     var new_card = document.createElement('button');
     new_card.setAttribute('id', 'new-card' + card_number);
     new_card.setAttribute('class', 'new-card');
+    // new_card.setAttribute('draggable', 'true');
     new_card.style.display = "none";
     var new_card_namer = document.createElement('textarea');
     new_card_namer.setAttribute('id', 'card-namer' + card_number);
@@ -391,7 +392,7 @@ function resetCards(){
 
 /*--- This is running on every click which may not be great--*/
 
-document.body.addEventListener("click", (evt) => {
+document.body.addEventListener("mousedown", (evt) => {
     const flyoutElement = document.querySelector(".swim-lane-namer");
     let targetElement = evt.target; // clicked element
     const fly = document.querySelector('.swim-lane-placeholder');
