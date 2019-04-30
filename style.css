@@ -1,5 +1,5 @@
 body {
-    background-color: #60402d;
+    background-color: #badbad;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -262,7 +262,7 @@ nav a {
     margin-left: 8px;
     padding: 4px;
     display: none; /*begins hidden and will appear with js*/
-    z-index: 11;
+    /* z-index: 11; */
 }
 
 .swim-lane-namer .list-title {
@@ -330,19 +330,19 @@ nav a {
 }
 
 #clickout-guy {
-    z-index: 9;
     position: absolute;
-    top: 90px;
+    top: 0;
     left: 0;
+    height: 100vh;
     width: 100vw;
-    height: calc(100vh - 90px);
     display: none;
+    background-color: rgba(0,0,0,.6);
 }
 
 #list-dropdown {
     display: none;
     position: absolute;
-    z-index: 50;
+    /* z-index: 50; */
     height: 150px;
     box-shadow: 0 8px 16px -4px rgba(9,30,66,.25), 0 0 0 1px rgba(9,30,66,.08);
     background-color: white;
@@ -352,14 +352,27 @@ nav a {
 
 #list-dropdown-top {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    /* justify-content: space-between;
+    align-items: baseline; */
     border-bottom: 1px solid rgba(9,30,66,.13);
     color: #6b778c;
     font-size: 14px;
     line-height: 40px;
     width: 250px;
     margin: 0px auto;
+}
+
+#list-dropdown-top a {
+    flex: 1;
+}
+
+#list-d-x {
+    text-align: right;
+}
+
+#list-dropdown-top span {
+    flex: 1;
+    text-align: center;
 }
 
 #list-dropdown-top a {
@@ -437,17 +450,18 @@ nav a {
 #list-yes-no input{
     display: inline-block;
     width: 55px;
+    text-align: center;
     padding: 5px 0px;
-    margin: 0px 20px;
+    margin: 0px 10px;
 }
 
 #list-yes-no {
-    padding: 15px;
+    padding: 12px;
 }
 
 #sub-span {
     color: #6b778c;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 200;
 }
 
@@ -505,7 +519,7 @@ nav a {
     width: 263px;
     max-width: 263px;
     min-width: 263px;
-    z-index: 10;
+    /* z-index: 10; */
     max-height: calc(100vh - 190px);
     overflow-y: scroll;
 }
@@ -614,6 +628,11 @@ nav a {
     padding: 3px 3px 3px 8px;
 }
 
+.new-card span {
+    width: 85%;
+    word-wrap: break-word;
+}
+
 .new-card button {
     display: none;
 }
@@ -663,7 +682,7 @@ nav a {
     padding: 5px 12px;
     border-radius: 3px;
     margin: 0px;
-    margin-right: 0px!important;
+    /* margin-right: 0px!important; */
     color: white;
     text-align: center;
     cursor: pointer;

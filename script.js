@@ -82,8 +82,11 @@ function createEmptyList(list_name){
     new_list.appendChild(new_list_top);
     //add empty middle section to add cards to later//
     var new_cards = document.createElement('div');
+    // var clickout_guy = document.createElement('div');
+    // clickout_guy.setAttribute('id', 'clickout-guy');
     new_cards.setAttribute('id', 'new-cards' + list_number);
     new_cards.setAttribute('class', 'new-cards');
+    // new_cards.append(clickout_guy);
     new_list.appendChild(new_cards);
     // add a bottom button that will activate new card//
     var new_list_add = document.createElement('button');
@@ -141,6 +144,8 @@ function detectKey(event, card, namer, id){
         if (named.value == ''){
             return;
         } else {
+            var clickout = document.getElementById('clickout-guy');
+            clickout.style.display = 'none';
             var name = document.getElementById(namer);
             name.blur(); //blur instead of addCard to prevent calling addCard twice (once on blur and once on this)
             nameCard(id);
@@ -167,10 +172,11 @@ function addCard(card, namer, id){
     var spanny = document.createElement('span');
     spanny.innerHTML = name;
     var butt = document.createElement('button');
-    // NEED TO SET ATTRIBUTES!!!
+    butt.setAttribute('onclick', `editCard("${card}", "${namer}");`);
     butt.innerHTML = '<i class="fas fa-pencil-alt"></i>';
     // butt.style.display = "none";
     var card = document.getElementById(card);
+    card.innerHTML = '';
     card.style.display = "flex";
     card.append(spanny);
     card.append(butt);
@@ -178,6 +184,26 @@ function addCard(card, namer, id){
 
     // console.log(id[id.length - 1]);
     // showAddCardButton(id);
+}
+
+function editCard(card, namer){
+    console.log(this);
+    console.log(card);
+    console.log(namer);
+    var card_guy = document.getElementById(card);
+
+    // card_guy.innerHTML = '';
+
+
+    card_guy.style.display = "none";
+    var namer_guy = document.getElementById(namer);
+    namer_guy.style.display = 'initial';
+    namer_guy.style.position = 'relative';
+    namer_guy.style.zIndex = '51';
+    namer_guy.focus();
+    var clickout_guy = document.getElementById('clickout-guy');
+    clickout_guy.style.display = 'block';
+    clickout_guy.style.zIndex = '10';
 }
 
 // function showAddCardButton(id){
@@ -238,10 +264,12 @@ function deleteListMenu() {
     yea.setAttribute('class', 'green-butt');
     yea.setAttribute('type', 'button');
     yea.setAttribute('value', 'Yes');
+    yea.setAttribute('onclick', 'deleteList()')
     var nay = document.createElement('input');
     nay.setAttribute('class', 'green-butt');
     nay.setAttribute('type', 'button');
     nay.setAttribute('value', 'No');
+    nay.setAttribute('onclick', 'resetListDropdown();');
     button_container.append(yea);
     button_container.append(nay);
     var bottom = document.getElementById('list-dropdown-bottom3');
@@ -249,6 +277,14 @@ function deleteListMenu() {
     bottom.append(span);
     bottom.append(sub_span);
     bottom.append(button_container);
+}
+
+function deleteList(){
+    var list_number = document.getElementById('list-proxy').textContent;
+    var index = list_number - 1;
+    list_array.splice(index, 1);
+    goAwayDroppy();
+    reprintLists();
 }
 
 function moveListMenu() {
@@ -337,9 +373,18 @@ function resetListDropdown(){
     spanny.innerHTML = "List Actions";
     var bottom_old = document.getElementById('list-dropdown-bottom');
     bottom_old.style.display = "initial";
-    var bottom = document.getElementById('list-dropdown-bottom2');
-    bottom.style.display = "none";
-    bottom.innerHTML = '';
+    var bottom2 = document.getElementById('list-dropdown-bottom2');
+    bottom2.style.display = "none";
+    var bottom3 = document.getElementById('list-dropdown-bottom3');
+    bottom3.style.display = "none";
+    bottom2.innerHTML = '';
+    bottom3.innerHTML = '';
+}
+
+
+function resetCards(){
+    var clickout = document.getElementById('clickout-guy');
+    clickout.style.display = 'none';
 }
 
 //==Experimental==//
@@ -363,6 +408,7 @@ document.body.addEventListener("click", (evt) => {
 
     // This is a click outside.
     
+    resetCards();
     resetListDropdown();
     replacePlaceholder();
     goAwayDroppy ();
