@@ -510,6 +510,10 @@ nav a {
     display: none;
 }
 
+#is-edited-proxy{
+    display: none;
+}
+
 
 /*--- JavaScript elements --*/
 .list {
@@ -602,6 +606,7 @@ nav a {
     font-size: 14px;
     line-height: 20px;
     color: #17394d;
+    margin-bottom: 8px;
 }
 
 .card-namer:focus {
@@ -621,7 +626,7 @@ nav a {
     font-size: 14px;
     line-height: 28px;
     color: #17394d;
-    margin-bottom: 8px;
+    /* margin-bottom: 8px; */
     cursor: pointer;
     box-shadow: 0 1px 0 rgba(9,45,66,.25);
     text-align: left;
@@ -692,3 +697,18 @@ nav a {
 .green-butt:hover {
     background-color: #519839;
 }
+
+/*--- Drag and drop styles --*/
+
+.invisible {
+    visibility: hidden;
+}
+
+.insert {
+    height: 7px;
+    width: 100%;
+    background-color: #DFE3E6;
+    transition: .5s ease;
+    margin-top: 1px;
+}
+

@@ -31,6 +31,9 @@ function addList(){
 
 let list_array = [];
 
+let card_array = [];
+
+
 function replacePlaceholder(){
     
     var namer = document.querySelector(".swim-lane-namer");
@@ -110,7 +113,8 @@ function nameCard(id){
     var new_card = document.createElement('button');
     new_card.setAttribute('id', 'new-card' + card_number);
     new_card.setAttribute('class', 'new-card');
-    // new_card.setAttribute('draggable', 'true');
+    new_card.setAttribute('draggable', 'true');
+    // new_card.setAttribute('ondragstart', 'dragStart(event)');
     new_card.style.display = "none";
     var new_card_namer = document.createElement('textarea');
     new_card_namer.setAttribute('id', 'card-namer' + card_number);
@@ -125,16 +129,35 @@ function nameCard(id){
     new_card_namer.focus();
     new_card_namer.value = '';
     card_number += 1;
+
+    addDragStartEvent(new_card)
 }
+
+
+function addDragStartEvent(element) {
+    element.addEventListener('dragstart', dragStart);
+    element.addEventListener('dragend', dragEnd);
+} 
+
 
 function cardBlur(card, namer, id) {
     var named = document.getElementById(namer);
     var name = named.value;
+    var edit_card = document.getElementById('is-edited-proxy');
+
     if (name == ''){
         named.style.display = 'none';
-    } else{
+    } else if (edit_card.innerHTML == 'true'){
+        var clickout = document.getElementById('clickout-guy');
+        clickout.style.display = 'none';
+        editCardFinal(card, namer, id);
+    } else {
+        var clickout = document.getElementById('clickout-guy');
+        clickout.style.display = 'none';
         addCard(card, namer, id);
     }
+    var edit_card = document.getElementById('is-edited-proxy');
+    edit_card.innerHTML = 'false';
 }
 
 
@@ -145,11 +168,20 @@ function detectKey(event, card, namer, id){
         if (named.value == ''){
             return;
         } else {
+    
             var clickout = document.getElementById('clickout-guy');
             clickout.style.display = 'none';
-            var name = document.getElementById(namer);
-            name.blur(); //blur instead of addCard to prevent calling addCard twice (once on blur and once on this)
-            nameCard(id);
+            // var name = document.getElementById(namer);
+            var edit_card = document.getElementById('is-edited-proxy');
+
+            if (edit_card.innerHTML == 'true') {
+                var clickout = document.getElementById('clickout-guy');
+                clickout.style.display = 'none';
+                editCardFinal(card, namer, id);
+            } else {
+                // named.blur(); //blur instead of addCard to prevent calling addCard twice (once on blur and once on this)
+                nameCard(id);
+            }
         }
     } else {
         return;
@@ -162,6 +194,21 @@ function enterDirect(evt){
     } else {
         return;
     }
+}
+
+function editCardFinal(card, namer, id) {
+    var clickout = document.getElementById('clickout-guy');
+    clickout.style.display = 'none';
+    var namer = document.getElementById(namer);
+    namer.style.display = 'none';
+
+    var spanny = document.getElementById(card).children[0];
+
+    spanny.innerHTML = namer.value;
+    var card = document.getElementById(card);
+    card.style.display = 'flex';
+    var card_insert = card.nextElementSibling;
+    card_insert.style.display = "block";
 }
 
 function addCard(card, namer, id){
@@ -183,20 +230,31 @@ function addCard(card, namer, id){
     card.append(butt);
     card.style.justifyContent = 'space-between';
 
-    // console.log(id[id.length - 1]);
-    // showAddCardButton(id);
+    var insert = document.createElement('div');
+    insert.setAttribute('class', 'insert');
+    card.insertAdjacentElement('afterend', insert);
+
+
+    
+    
+    card_array.push(card);
+    console.log(card_array);
 }
 
 function editCard(card, namer){
-    console.log(this);
-    console.log(card);
-    console.log(namer);
+
+    var edit_card = document.getElementById('is-edited-proxy');
+    edit_card.innerHTML = 'true';
+
     var card_guy = document.getElementById(card);
 
     // card_guy.innerHTML = '';
 
-
+    // card_guy.parentNode.removeChild(card_guy);
+    var card_guy_insert = card_guy.nextElementSibling;
+    card_guy_insert.style.display = "none";
     card_guy.style.display = "none";
+
     var namer_guy = document.getElementById(namer);
     namer_guy.style.display = 'initial';
     namer_guy.style.position = 'relative';
@@ -234,10 +292,15 @@ function listDropdown (thing){
     }
 
     var dropdown = document.getElementById('list-dropdown');
-    var scroll = document.getElementById('list-group');
-    var scrollLeft = scroll.scrollLeft;
+    var scrolled = document.getElementById('list-group');
+    var scrollLeft = scrolled.scrollLeft;
     dropdown.style.top = button.offsetTop + 34 + 'px';
     dropdown.style.left = (button.offsetLeft - scrollLeft) + 'px';
+    if ((button.offsetLeft - scrollLeft) + 300 > window.innerWidth) {
+        dropdown.style.left = window.innerWidth - 308 + 'px';
+    } else if ((button.offsetLeft - scrollLeft) < 34){
+        dropdown.style.left = '8px';
+    }
     dropdown.style.display = "block";
 }
 
@@ -319,7 +382,7 @@ function moveList(){
     var index = list_number - 1;
     var selected = document.forms[0].children[0].children[1].options[document.forms[0].children[0].children[1].selectedIndex].value;
     selected = selected - 1;
-    console.log(selected);
+
     if (selected[selected.length - 1] == ')'){
         return false;
     } else {
@@ -327,7 +390,7 @@ function moveList(){
             if (i == index){
                 let move = list_array.splice(i, 1)[0];
                 list_array.splice(selected, 0, move);
-                console.log(list_array);
+
             }
         }
     }
@@ -340,7 +403,7 @@ function reprintLists(){
     var lists = document.getElementById('new-lists');
     lists.innerHTML = '';
     for (let list of list_array){
-        console.log(list_array);
+
         lists.append(list);
     }
 }
@@ -416,3 +479,112 @@ document.body.addEventListener("mousedown", (evt) => {
 });
 
 //==Experimental above==//
+
+// const fill = document.querySelector('.new-card');
+// const empties = document.querySelectorAll('');
+
+// console.log(fill)
+// (x)
+
+
+function dragStart() {
+    setTimeout(() => {
+
+
+        this.classList.add('invisible');
+        this.style.height = "55px";
+        this.nextElementSibling.style.display = "none";
+        // this.classList.remove('new-card');
+        // var inserts = document.getElementsByClassName('insert');
+        // for(const insert of inserts){
+        //     insert.addEventListener('dragover', dragOver);
+        //     insert.addEventListener('dragenter', dragEnter);
+        //     insert.addEventListener('dragleave', dragLeave);
+        //     insert.addEventListener('drop', dragDrop);
+        // }
+
+
+    }, 0);
+    var inserts = document.getElementsByClassName('insert');
+    for(const insert of inserts){
+        insert.addEventListener('dragover', dragOver);
+        insert.addEventListener('dragenter', dragEnter);
+        insert.addEventListener('dragleave', dragLeave);
+        insert.addEventListener('drop', dragDrop);
+    }
+    var cards = document.getElementsByClassName('new-card');
+    for(const card of cards){
+        card.addEventListener('dragover', dragOverCard);
+        // card.addEventListener('dragenter', dragEnter);
+        card.addEventListener('dragleave', dragLeaveCard);
+        // card.addEventListener('drop', dragDrop);
+    }
+    var hide = this.previousElementSibling.previousElementSibling;
+    hide.style.display = 'none';
+}
+
+// var drag_counter = 1;
+
+function dragEnd() {
+
+    
+    var inserts = document.getElementsByClassName('insert');
+    for (let item of inserts){
+        item.style.height = "7px";
+    }    
+    this.classList.remove('invisible');
+    this.nextElementSibling.style.display = "block";
+    this.style.height = "initial";
+    var hide = this.previousElementSibling.previousElementSibling;
+    hide.style.display = 'block';
+}
+
+function dragOver(e){
+    e.preventDefault();
+
+    this.style.height = '55px';
+}
+
+// create a class for the placeholder div
+
+// find all divs with the placeholder class
+
+// when leave is called
+    // loop through the list of returned divs
+        // delete all div
+
+function dragEnter(e){
+    e.preventDefault();
+    // let parent = this.parentElement;
+    // for (let item of card_array){
+    //     if (item == this){
+    //         var insert = document.createElement('div');
+    //         insert.setAttribute('class', 'insert');
+    //         insert.style.display = "block";
+    //         parent.insertBefore(insert, this);
+    //     }
+    // }
+}
+
+function dragLeave(){
+    // var inserts = document.getElementsByClassName('insert');
+    // for(let item of inserts){
+    //     item.style.display = "none";
+    // }
+    this.style.height = "7px";
+}
+
+function dragDrop(){
+
+}
+
+function dragOverCard(e){
+    e.preventDefault();
+    var insert = this.nextElementSibling;
+    insert.style.height = "55px";
+}
+
+function dragLeaveCard(){
+    var insert = this.nextElementSibling;
+    insert.style.height = "7px";
+}
