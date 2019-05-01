@@ -492,7 +492,7 @@ function dragStart() {
 
 
         this.classList.add('invisible');
-        this.style.height = "55px";
+        this.style.height = "50px";
         this.nextElementSibling.style.display = "none";
         // this.classList.remove('new-card');
         // var inserts = document.getElementsByClassName('insert');
@@ -542,7 +542,7 @@ function dragEnd() {
 function dragOver(e){
     e.preventDefault();
 
-    this.style.height = '55px';
+    this.style.height = '50px';
 }
 
 // create a class for the placeholder div
@@ -581,7 +581,7 @@ function dragDrop(){
 function dragOverCard(e){
     e.preventDefault();
     var insert = this.nextElementSibling;
-    insert.style.height = "55px";
+    insert.style.height = "50px";
 }
 
 function dragLeaveCard(){
