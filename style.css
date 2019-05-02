@@ -1,5 +1,5 @@
 body {
-    background-color: #badbad;
+    background-color: #4b5418;
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -524,8 +524,8 @@ nav a {
     max-width: 263px;
     min-width: 263px;
     /* z-index: 10; */
-    max-height: calc(100vh - 190px);
-    overflow-y: scroll;
+    /* max-height: calc(100vh - 190px); */
+    /* overflow-y: scroll; */
 }
 .list-top {
     display: inline-block;
@@ -633,6 +633,11 @@ nav a {
     padding: 3px 3px 3px 8px;
 }
 
+.new-cards {
+    overflow-y: scroll;
+    max-height: calc(100vh - 250px);
+}
+
 .new-card span {
     width: 85%;
     word-wrap: break-word;
@@ -651,13 +656,13 @@ nav a {
     outline: none;
     padding: 0px;
     color: #7a869a;
-    cursor: pointer;
     background-color: inherit;
 }
 
 .new-card button:hover{
     color: #505f79;
     background-color: #ebecf0;
+    cursor: pointer;
 }
 
 .new-card:focus {
@@ -667,6 +672,7 @@ nav a {
 
 .new-card:hover {
     background-color: #f8f8f8;
+    cursor: grab;
 }
 
 .dropdown-container {
@@ -709,6 +715,10 @@ nav a {
     width: 100%;
     background-color: #DFE3E6;
     transition: .5s ease;
-    margin-top: 1px;
+    margin: 1px 0px;
 }
 
+.insert-top {
+    height: 0px;
+    transition: .5s ease;
+}

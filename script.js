@@ -89,6 +89,11 @@ function createEmptyList(list_name){
     // clickout_guy.setAttribute('id', 'clickout-guy');
     new_cards.setAttribute('id', 'new-cards' + list_number);
     new_cards.setAttribute('class', 'new-cards');
+    //need a first insert for hover effects on drag n drop
+    var insert = document.createElement('div');
+    insert.setAttribute('class', 'insert-top insert');
+    insert.setAttribute('id', 'insert' + list_number);
+    new_cards.append(insert);
     // new_cards.append(clickout_guy);
     new_list.appendChild(new_cards);
     // add a bottom button that will activate new card//
@@ -238,7 +243,7 @@ function addCard(card, namer, id){
     
     
     card_array.push(card);
-    console.log(card_array);
+    // console.log(card_array);
 }
 
 function editCard(card, namer){
@@ -490,9 +495,8 @@ document.body.addEventListener("mousedown", (evt) => {
 function dragStart() {
     setTimeout(() => {
 
-
         this.classList.add('invisible');
-        this.style.height = "50px";
+        this.style.height = "52px";
         this.nextElementSibling.style.display = "none";
         // this.classList.remove('new-card');
         // var inserts = document.getElementsByClassName('insert');
@@ -512,6 +516,16 @@ function dragStart() {
         insert.addEventListener('dragleave', dragLeave);
         insert.addEventListener('drop', dragDrop);
     }
+    var tops = document.getElementsByClassName('list-top');//if i add button to add card will need to change
+    for (const top of tops){
+        top.addEventListener('dragover', dragOverTop);
+        top.addEventListener('dragleave', dragLeaveTop);
+    }
+    var bottoms = document.getElementsByClassName('card-add');
+    for (const bottom of bottoms){
+        bottom.addEventListener('dragover', dragOverBottom);
+        bottom.addEventListener('dragleave', dragLeaveBottom);
+    }
     var cards = document.getElementsByClassName('new-card');
     for(const card of cards){
         card.addEventListener('dragover', dragOverCard);
@@ -519,30 +533,29 @@ function dragStart() {
         card.addEventListener('dragleave', dragLeaveCard);
         // card.addEventListener('drop', dragDrop);
     }
-    var hide = this.previousElementSibling.previousElementSibling;
-    hide.style.display = 'none';
+    // var hide = this.previousElementSibling.previousElementSibling;
+    // hide.style.display = 'none';
 }
 
 // var drag_counter = 1;
 
 function dragEnd() {
 
-    
     var inserts = document.getElementsByClassName('insert');
     for (let item of inserts){
-        item.style.height = "7px";
-    }    
+        item.style.height = "6px";
+    }
     this.classList.remove('invisible');
     this.nextElementSibling.style.display = "block";
     this.style.height = "initial";
-    var hide = this.previousElementSibling.previousElementSibling;
-    hide.style.display = 'block';
+    // var hide = this.previousElementSibling.previousElementSibling;
+    // hide.style.display = 'block';
 }
 
 function dragOver(e){
     e.preventDefault();
 
-    this.style.height = '50px';
+    this.style.height = '52px';
 }
 
 // create a class for the placeholder div
@@ -571,7 +584,7 @@ function dragLeave(){
     // for(let item of inserts){
     //     item.style.display = "none";
     // }
-    this.style.height = "7px";
+    this.style.height = "6px";
 }
 
 function dragDrop(){
@@ -581,10 +594,61 @@ function dragDrop(){
 function dragOverCard(e){
     e.preventDefault();
     var insert = this.nextElementSibling;
-    insert.style.height = "50px";
+    insert.style.height = "52px";
 }
 
 function dragLeaveCard(){
     var insert = this.nextElementSibling;
-    insert.style.height = "7px";
+    insert.style.height = "6px";
+}
+
+
+
+
+
+
+
+
+function dragOverTop(e){
+    e.preventDefault();
+    var index = this.id[this.id.length - 1];
+    var insert = document.getElementById(`insert${index}`);
+    insert.style.height = "52px";
+}
+
+function dragLeaveTop(){
+    var index = this.id[this.id.length - 1];
+    var insert = document.getElementById(`insert${index}`);
+    insert.style.height = "0px";
+}
+
+
+
+
+function dragOverBottom(e){
+    e.preventDefault();
+    var index = this.id[this.id.length - 1];
+    var inserts = document.querySelectorAll(`#list${index} .insert`);
+    let insert_array = [];
+    for(let insert of inserts){
+        if (insert.display != 'none'){
+            insert_array.push(insert);
+        }
+    }
+    var target = insert_array[insert_array.length - 1];
+    console.log(target);
+    target.style.height = "52px";
+}
+
+function dragLeaveBottom(){
+    var index = this.id[this.id.length - 1];
+    var inserts = document.querySelectorAll(`#list${index} .insert`);
+    let insert_array = [];
+    for(let insert of inserts){
+        if (insert.display != 'none'){
+            insert_array.push(insert);
+        }
+    }
+    var target = insert_array[insert_array.length - 1];
+    target.style.height = "6px";
 }
