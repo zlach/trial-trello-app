@@ -129,8 +129,12 @@ function nameCard(id){
     new_card_namer.setAttribute('onkeypress', `detectKey(event, "${new_card.id}", "${new_card_namer.id}", "${id}")`);//function
     var list_destination = document.getElementById(id);
     list_destination.style.padding = "0px 8px";
-    list_destination.appendChild(new_card_namer);
-    list_destination.appendChild(new_card);
+    var container_div = document.createElement('div');
+    container_div.setAttribute('class', 'card-container');
+    container_div.setAttribute('id', 'card-container' + card_number);
+    container_div.appendChild(new_card_namer);
+    container_div.appendChild(new_card);
+    list_destination.appendChild(container_div);
     new_card_namer.focus();
     new_card_namer.value = '';
     card_number += 1;
@@ -171,6 +175,8 @@ function detectKey(event, card, namer, id){
         event.preventDefault();
         var named = document.getElementById(namer);
         if (named.value == ''){
+            // var card_replacement = document.getElementById(card);
+            // if (card_replacement.firstChild.)
             return;
         } else {
     
@@ -492,10 +498,12 @@ document.body.addEventListener("mousedown", (evt) => {
 // (x)
 
 
+
 function dragStart() {
     setTimeout(() => {
 
         this.classList.add('invisible');
+        this.classList.add('chosen');
         this.style.height = "52px";
         this.nextElementSibling.style.display = "none";
         // this.classList.remove('new-card');
@@ -520,17 +528,20 @@ function dragStart() {
     for (const top of tops){
         top.addEventListener('dragover', dragOverTop);
         top.addEventListener('dragleave', dragLeaveTop);
+        top.addEventListener('drop', dragDropTop);
     }
     var bottoms = document.getElementsByClassName('card-add');
     for (const bottom of bottoms){
         bottom.addEventListener('dragover', dragOverBottom);
         bottom.addEventListener('dragleave', dragLeaveBottom);
+        bottom.addEventListener('drop', dragDropBottom);
     }
     var cards = document.getElementsByClassName('new-card');
     for(const card of cards){
         card.addEventListener('dragover', dragOverCard);
         // card.addEventListener('dragenter', dragEnter);
         card.addEventListener('dragleave', dragLeaveCard);
+        card.addEventListener('drop', dragDropCard);
         // card.addEventListener('drop', dragDrop);
     }
     // var hide = this.previousElementSibling.previousElementSibling;
@@ -545,8 +556,14 @@ function dragEnd() {
     for (let item of inserts){
         item.style.height = "6px";
     }
+    this.parentElement.parentElement.style.padding = "0px 8px";
     this.classList.remove('invisible');
+    this.classList.remove('chosen');//no timer b/c stackflow says that dragDrop will fire first no matter what
     this.nextElementSibling.style.display = "block";
+    var excepts = document.querySelectorAll('.insert-top');  //This line and line below not working for some reason
+    for (let except of excepts){
+        except.style.height = '0px';
+    }
     this.style.height = "initial";
     // var hide = this.previousElementSibling.previousElementSibling;
     // hide.style.display = 'block';
@@ -588,7 +605,14 @@ function dragLeave(){
 }
 
 function dragDrop(){
-
+    var chosen = document.querySelector('.chosen');
+    chosen.classList.add('new-card-blue');
+    setTimeout(() => chosen.classList.remove('new-card-blue'), 1400);
+    if(this.className.includes('insert-top')){
+        this.insertAdjacentElement('afterend', chosen.parentElement);
+    } else {
+        this.parentElement.insertAdjacentElement('afterend', chosen.parentElement);
+    }
 }
 
 function dragOverCard(e){
@@ -602,9 +626,26 @@ function dragLeaveCard(){
     insert.style.height = "6px";
 }
 
+function dragDropCard(){
+    var chosen = document.querySelector('.chosen');
+    chosen.classList.add('new-card-blue');
+    setTimeout(() => chosen.classList.remove('new-card-blue'), 1400);
+    this.parentElement.insertAdjacentElement('afterend', chosen.parentElement);
+}
 
+function dragDropTop(){
+    var chosen = document.querySelector('.chosen');
+    chosen.classList.add('new-card-blue');
+    setTimeout(() => chosen.classList.remove('new-card-blue'), 1400);
+    this.nextElementSibling.children[0].insertAdjacentElement('afterend', chosen.parentElement);
+}
 
-
+function dragDropBottom(){
+    var chosen = document.querySelector('.chosen');
+    chosen.classList.add('new-card-blue');
+    setTimeout(() => chosen.classList.remove('new-card-blue'), 1400);
+    this.previousElementSibling.insertAdjacentElement('beforeend', chosen.parentElement);
+}
 
 
 
@@ -641,14 +682,26 @@ function dragOverBottom(e){
 }
 
 function dragLeaveBottom(){
-    var index = this.id[this.id.length - 1];
-    var inserts = document.querySelectorAll(`#list${index} .insert`);
-    let insert_array = [];
-    for(let insert of inserts){
-        if (insert.display != 'none'){
-            insert_array.push(insert);
+    setTimeout(() => {
+        var index = this.id[this.id.length - 1];
+        var inserts = document.querySelectorAll(`#list${index} .insert`);
+        let insert_array = [];
+        for(let insert of inserts){
+            if (insert.display != 'none'){
+                insert_array.push(insert);
+            }
         }
-    }
-    var target = insert_array[insert_array.length - 1];
-    target.style.height = "6px";
+        var target = insert_array[insert_array.length - 1];
+        target.style.height = "6px";
+    }, 100);
 }
+
+
+
+/*--- Things to fix
+
+on edit, deleting card content deletes the card
+
+on drag of card, hovering above insert above held div should not expand it
+
+--*/

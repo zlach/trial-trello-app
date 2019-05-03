@@ -666,8 +666,13 @@ nav a {
 }
 
 .new-card:focus {
+    outline:none;
+}
+
+.new-card-blue {
     outline: none;
     border: 2px solid #0079bf;
+    transition: 1s;
 }
 
 .new-card:hover {
