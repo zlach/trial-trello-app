@@ -152,10 +152,17 @@ function addDragStartEvent(element) {
 function cardBlur(card, namer, id) {
     var named = document.getElementById(namer);
     var name = named.value;
+    var cardiB = document.getElementById(card);
     var edit_card = document.getElementById('is-edited-proxy');
 
-    if (name == ''){
+    if (name == '' && edit_card.innerHTML == 'false'){
         named.style.display = 'none';
+    } else if (name == '' && edit_card.innerHTML == 'true'){
+        named.style.display = 'none';
+        cardiB.style.display = 'flex';
+        cardiB.nextElementSibling.style.display = "block";
+        console.log(cardiB.firstChild.innerHTML);
+        named.value = cardiB.firstChild.innerHTML;
     } else if (edit_card.innerHTML == 'true'){
         var clickout = document.getElementById('clickout-guy');
         clickout.style.display = 'none';
@@ -173,11 +180,16 @@ function cardBlur(card, namer, id) {
 function detectKey(event, card, namer, id){
     if(event.keyCode == 13){
         event.preventDefault();
+        var edit_card = document.getElementById('is-edited-proxy');
         var named = document.getElementById(namer);
-        if (named.value == ''){
-            // var card_replacement = document.getElementById(card);
-            // if (card_replacement.firstChild.)
+        var cardiB = document.getElementById(card);
+        if (named.value == '' && edit_card.innerHTML == 'false'){
             return;
+        } else if (named.value == '' && edit_card.innerHTML == 'true'){
+            named.style.display = 'none';
+            cardiB.style.display = 'flex';
+            cardiB.nextElementSibling.style.display = "block";
+            named.value = cardiB.firstChild.innerHTML;
         } else {
     
             var clickout = document.getElementById('clickout-guy');
