@@ -154,14 +154,13 @@ function cardBlur(card, namer, id) {
     var name = named.value;
     var cardiB = document.getElementById(card);
     var edit_card = document.getElementById('is-edited-proxy');
-
     if (name == '' && edit_card.innerHTML == 'false'){
         named.style.display = 'none';
     } else if (name == '' && edit_card.innerHTML == 'true'){
         named.style.display = 'none';
         cardiB.style.display = 'flex';
         cardiB.nextElementSibling.style.display = "block";
-        console.log(cardiB.firstChild.innerHTML);
+
         named.value = cardiB.firstChild.innerHTML;
     } else if (edit_card.innerHTML == 'true'){
         var clickout = document.getElementById('clickout-guy');
@@ -174,12 +173,14 @@ function cardBlur(card, namer, id) {
     }
     var edit_card = document.getElementById('is-edited-proxy');
     edit_card.innerHTML = 'false';
+    deleteGuyByeBye();
 }
 
 
 function detectKey(event, card, namer, id){
     if(event.keyCode == 13){
         event.preventDefault();
+        deleteGuyByeBye();
         var edit_card = document.getElementById('is-edited-proxy');
         var named = document.getElementById(namer);
         var cardiB = document.getElementById(card);
@@ -258,7 +259,9 @@ function addCard(card, namer, id){
     card.insertAdjacentElement('afterend', insert);
 
 
-    
+    // var index = namer[namer.length - 1];
+    // var container_id = "card-container" + index;
+    // var container = document.getElementById(container_id);
     
     card_array.push(card);
     // console.log(card_array);
@@ -286,7 +289,56 @@ function editCard(card, namer){
     var clickout_guy = document.getElementById('clickout-guy');
     clickout_guy.style.display = 'block';
     clickout_guy.style.zIndex = '10';
+
+    deleteGuy(namer);
 }
+
+function deleteGuy(namer){
+    var name = document.getElementById(namer);
+    var scrolled = name.parentElement.parentElement;
+    var scroll_top = scrolled.scrollTop;
+
+    var delete_guy = document.getElementById('delete-guy');
+
+    delete_guy.style.display = "block";
+    delete_guy.style.left = name.offsetLeft + 251 + 'px';
+    delete_guy.style.top = (name.offsetTop - scroll_top) + 'px';
+    delete_guy.addEventListener('click', function(){deleteCard(namer);}, false);
+    // console.dir(delete_guy.getAttribute('onclick'));
+
+    // delete_guy.addEventListener('click', (event) => {
+    //     // delete this element card
+
+    //     // remove this event listener
+
+    //     console.log('start')
+
+    //     delete_guy.removeEventListener('click')
+
+    //     console.log('end')
+    // })
+
+
+}
+
+function deleteCard(namer){
+    // var namer = document.getElementById(namer);
+    console.log(namer);
+    var index = namer[namer.length - 1];
+    console.log(index);
+    var bye_guy_id = 'card-container' + index;
+    var bye_guy = document.getElementById(bye_guy_id);
+    bye_guy.style.display = 'none';
+    var target = 'new-card' + index;
+    for (let i = 0;i < card_array.length;i++){
+        if (card_array[i].id == target){
+            card_array.splice(i, 1);
+        }
+    }
+    deleteGuyByeBye();
+    reprintLists();
+}
+
 
 // function showAddCardButton(id){
 //     var bottom = document.getElementById('card-add' + id[id.length - 1]);
@@ -483,9 +535,10 @@ document.body.addEventListener("mousedown", (evt) => {
     let targetElement = evt.target; // clicked element
     const fly = document.querySelector('.swim-lane-placeholder');
     const fly_guy = document.querySelector('#list-dropdown');
+    const fly_delete = document.getElementById('delete-guy');
     // const fly_lists = document.getElementsByClassName('list');
         do {
-            if (targetElement == flyoutElement || targetElement == fly || targetElement == fly_guy || targetElement.className == 'list') {
+            if (targetElement == flyoutElement || targetElement == fly || targetElement == fly_guy || targetElement.className == 'list' || targetElement == fly_delete) {
                 // This is a click inside. Do nothing, just return.
                 return;
             }
@@ -499,6 +552,7 @@ document.body.addEventListener("mousedown", (evt) => {
     resetListDropdown();
     replacePlaceholder();
     goAwayDroppy ();
+    deleteGuyByeBye();
 });
 
 //==Experimental above==//
@@ -509,7 +563,10 @@ document.body.addEventListener("mousedown", (evt) => {
 // console.log(fill)
 // (x)
 
-
+function deleteGuyByeBye(){
+    const delete_guy = document.getElementById('delete-guy');
+    delete_guy.style.display = "none";
+}
 
 function dragStart() {
     setTimeout(() => {
@@ -689,7 +746,7 @@ function dragOverBottom(e){
         }
     }
     var target = insert_array[insert_array.length - 1];
-    console.log(target);
+
     target.style.height = "52px";
 }
 

@@ -1,5 +1,5 @@
 body {
-    background-color: #4b5418;
+    background-color: hsl(62, 21%, 48%);
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
@@ -514,6 +514,30 @@ nav a {
     display: none;
 }
 
+#delete-guy{
+    display: none;
+    position: absolute;
+    z-index: 51;
+    border-radius: 3px;
+    color: #e6e6e6;
+    font-size: 14px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    padding: 0px 8px;
+    background: rgba(0,0,0,.6);
+    cursor: pointer;
+    border: none;
+}
+
+#delete-guy:focus {
+    outline: none;
+}
+
+#delete-guy:hover{
+    background: rgba(0,0,0,.8);
+    color: white;
+}
 
 /*--- JavaScript elements --*/
 .list {
