@@ -297,11 +297,13 @@ function deleteGuy(namer){
     var name = document.getElementById(namer);
     var scrolled = name.parentElement.parentElement;
     var scroll_top = scrolled.scrollTop;
+    var scrolled_horizontal = document.getElementById('list-group');
+    var scroll_left = scrolled_horizontal.scrollLeft;
 
     var delete_guy = document.getElementById('delete-guy');
 
     delete_guy.style.display = "block";
-    delete_guy.style.left = name.offsetLeft + 251 + 'px';
+    delete_guy.style.left = (name.offsetLeft - scroll_left) + 251 + 'px';
     delete_guy.style.top = (name.offsetTop - scroll_top) + 'px';
     delete_guy.addEventListener('click', function(){deleteCard(namer);}, false);
     // console.dir(delete_guy.getAttribute('onclick'));
