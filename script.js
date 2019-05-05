@@ -173,7 +173,7 @@ function cardBlur(card, namer, id) {
     }
     var edit_card = document.getElementById('is-edited-proxy');
     edit_card.innerHTML = 'false';
-    deleteGuyByeBye();
+    // deleteGuyByeBye();
 }
 
 
