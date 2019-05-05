@@ -173,7 +173,8 @@ function cardBlur(card, namer, id) {
     }
     var edit_card = document.getElementById('is-edited-proxy');
     edit_card.innerHTML = 'false';
-    // deleteGuyByeBye();
+    deleteGuyByeBye();
+    resetCards();
 }
 
 
@@ -305,7 +306,7 @@ function deleteGuy(namer){
     delete_guy.style.display = "block";
     delete_guy.style.left = (name.offsetLeft - scroll_left) + 251 + 'px';
     delete_guy.style.top = (name.offsetTop - scroll_top) + 'px';
-    delete_guy.addEventListener('click', function(){deleteCard(namer);}, false);
+    delete_guy.addEventListener('mousedown', function(){deleteCard(namer);}, false);
     // console.dir(delete_guy.getAttribute('onclick'));
 
     // delete_guy.addEventListener('click', (event) => {
