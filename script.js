@@ -419,7 +419,9 @@ function moveCards() {
     let cards_to_move = [];
     var current_list = document.getElementById('list-proxy').textContent;
     var selected = document.getElementById('list-dropdown-bottom4').children[0].children[1].options[document.getElementById('list-dropdown-bottom4').children[0].children[1].selectedIndex].value;
-    var target = document.getElementById('new-cards' + selected);
+    var target_id = list_array[selected - 1].id;
+    var target_index = target_id.substr(4);
+    var target = document.getElementById('new-cards' + target_index);
     if (selected[selected.length - 1] == ')'){
         return false;
     } else {
