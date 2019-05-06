@@ -581,6 +581,28 @@ function resetCards(){
     clickout.style.display = 'none';
 }
 
+function sideMenu(){
+    var menu = document.getElementById('side-menu');
+    menu.style.display = 'flex';
+}
+
+function hideMenu() {
+    var menu = document.getElementById('side-menu');
+    menu.style.display = 'none';
+}
+
+function changeBgColor(){
+    var bod = document.getElementById('bod');
+
+    var picker = document.getElementById('color');
+    var color = picker.value
+    var men = document.getElementById('side-menu');
+    bod.style.backgroundColor = color;
+    picker.setAttribute('value', color);
+    men.style.display = "none";
+    return false;
+}
+
 //==Experimental==//
 
 /*--- This is running on every click which may not be great--*/

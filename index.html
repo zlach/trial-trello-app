@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body>
+    <body id="bod">
         <nav>
             <div class="nav-item">
                 <a href="#" class="nav-link nav-link-square"><i class="fas fa-home"></i></a>
@@ -35,7 +35,7 @@
             <span class="subnav-lil-line"></span>
             <a href="#" id="subnav-circle">ZG</a>
             <a href="#" id="subnav-invite">Invite</a>
-            <a href="#" id="show-menu"><i class="fas fa-ellipsis-h"></i> &nbsp<u>Show Menu</u></a>
+            <a href="#" id="show-menu" onclick="sideMenu();"><i class="fas fa-ellipsis-h"></i> &nbsp<u>Show Menu</u></a>
         </div>
         <div id="list-group"> <!--could try and put onclick here to replacePlaceholder-->
             <div id="new-lists">
@@ -70,6 +70,14 @@
             <form id="list-dropdown-bottom4">
 
             </form>
+        </div>
+        <div id="side-menu">
+            <div id="side-menu-top">
+                <a id="side-m-back" href="#" onclick="resetListDropdown()"><i class="fas fa-arrow-left"></i></a>
+                <span id="side-m-text">Menu</span>
+                <a id="side-m-x" href="#" onclick="hideMenu()"><i class="fas fa-times"></i></a>
+            </div>
+            <form id="menu-form" onsubmit="return changeBgColor();"><div id="guy"><span id="menu-color-text">Select background color:</span><input type='color' id="color" value="#6e856e"/></div><button type="submit" class="green-butt">Change Background Color!</button></form>
         </div>
         <button id="delete-guy" type="button">Delete Card</button>
         <div id="clickout-guy"></div>
