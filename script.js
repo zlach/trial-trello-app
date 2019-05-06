@@ -34,6 +34,7 @@ let list_array = [];
 let card_array = [];
 
 
+
 function replacePlaceholder(){
     
     var namer = document.querySelector(".swim-lane-namer");
@@ -387,6 +388,54 @@ function goAwayDroppy (){
     dropdown.style.display = "none";
 }
 
+function moveCardsMenu(){
+    var bottom_old = document.getElementById('list-dropdown-bottom');
+    bottom_old.style.display = "none";
+    var spanny = document.getElementById('list-d-text');
+    spanny.innerHTML = "Move Cards";
+    var back = document.getElementById('list-d-back');
+    back.style.visibility = "visible";
+    var tip_top = document.createElement('div');
+    var span_dog = document.createElement('span');
+    span_dog.innerHTML = 'Destination:';
+    var form = document.getElementById('list-dropdown-bottom4');
+    var select = new ListOptions();
+    var submit = document.createElement('input');
+    submit.setAttribute('class', 'green-butt');
+    submit.setAttribute('type', 'submit');
+    // var form = document.createElement('form');
+    form.setAttribute('onsubmit', 'return moveCards();');
+    tip_top.append(span_dog);
+    tip_top.append(select);
+    form.append(tip_top);
+    form.append(submit);
+    form.style.display = "flex";
+}
+
+function moveCards() {
+    var all_cards = document.getElementsByClassName('card-container');
+    let cards_to_move = [];
+    var current_list = document.getElementById('list-proxy').textContent;
+    var selected = document.getElementById('list-dropdown-bottom4').children[0].children[1].options[document.getElementById('list-dropdown-bottom4').children[0].children[1].selectedIndex].value;
+    var target = document.getElementById('new-cards' + selected);
+    if (selected[selected.length - 1] == ')'){
+        return false;
+    } else {
+        for (let card of all_cards){
+            if (card.parentElement.id[card.parentElement.id.length - 1] == current_list){
+                cards_to_move.push(card);
+            }
+        }
+        for (let i = 0; i < cards_to_move.length;i++){
+            target.append(cards_to_move[i]);
+        }
+    }
+    target.style.padding = '0px 8px';
+    goAwayDroppy();
+    reprintLists();
+    return false;
+}
+
 function deleteListMenu() {
     var bottom_old = document.getElementById('list-dropdown-bottom');
     bottom_old.style.display = "none";
@@ -521,6 +570,9 @@ function resetListDropdown(){
     bottom3.style.display = "none";
     bottom2.innerHTML = '';
     bottom3.innerHTML = '';
+    var bottom4 = document.getElementById('list-dropdown-bottom4');
+    bottom4.style.display = "none";
+    bottom4.innerHTML = '';
 }
 
 
