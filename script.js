@@ -330,7 +330,7 @@ function deleteGuy(namer){
 function deleteCard(namer){
     // var namer = document.getElementById(namer);
     console.log(namer);
-    var index = namer[namer.length - 1];
+    var index = namer.substr(10);
     console.log(index);
     var bye_guy_id = 'card-container' + index;
     var bye_guy = document.getElementById(bye_guy_id);
