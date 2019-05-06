@@ -321,8 +321,10 @@ function deleteGuy(namer){
 
     //     console.log('end')
     // })
-
-
+    if ((name.offsetLeft - scroll_left) + 348 > window.innerWidth) {
+        console.log('in?');
+        delete_guy.style.left = (name.offsetLeft - scroll_left) - 98 + 'px';
+    }//sketchy
 }
 
 function deleteCard(namer){
