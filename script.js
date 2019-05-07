@@ -415,21 +415,25 @@ function moveCardsMenu(){
 }
 
 function moveCards() {
-    var all_cards = document.getElementsByClassName('card-container');
     let cards_to_move = [];
-    var current_list = document.getElementById('list-proxy').textContent;
+    var current_list_number = document.getElementById('list-proxy').textContent;
+    var current_list = list_array[current_list_number - 1];
     var selected = document.getElementById('list-dropdown-bottom4').children[0].children[1].options[document.getElementById('list-dropdown-bottom4').children[0].children[1].selectedIndex].value;
     var target_id = list_array[selected - 1].id;
     var target_index = target_id.substr(4);
     var target = document.getElementById('new-cards' + target_index);
+
+    var cards = current_list.children[1].children;
+    console.log(cards);
     if (selected[selected.length - 1] == ')'){
         return false;
     } else {
-        for (let card of all_cards){
-            if (card.parentElement.id[card.parentElement.id.length - 1] == current_list){
+        for (let card of cards){
+            if (card.className == 'card-container'){
                 cards_to_move.push(card);
             }
         }
+        console.log(cards_to_move);
         for (let i = 0; i < cards_to_move.length;i++){
             target.append(cards_to_move[i]);
         }
@@ -437,6 +441,7 @@ function moveCards() {
     target.style.padding = '0px 8px';
     goAwayDroppy();
     reprintLists();
+
     return false;
 }
 
