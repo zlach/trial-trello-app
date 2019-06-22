@@ -15,14 +15,16 @@ app.use(express.static('public'));
 app.post('/lists', function(req, res){
     let result = req.body;
     lists.push(result);
+    res.send('message received');
     console.log(lists);
 })
 
 app.post('/counters', function(req, res){
     if (req.body.listCounter){
-    let list_number_string = req.body.listCounter;
-    list_number = parseInt(list_number_string);
-    console.log(list_number);
+        let list_number_string = req.body.listCounter;
+        list_number = parseInt(list_number_string);
+        res.send('message received');
+        console.log(list_number);
     }
 })
 
