@@ -110,15 +110,14 @@ function createEmptyList(list_name){
     
     list_array.push(new_list);
     $.post("/lists", {listName: `${list_name}`, id: `${list_number}`}, null); //don't know if i want uuid or use same ids
-    $.post("/counters", {listCounter: `${list_number}`}, null);
-    console.log(list_number);
+    // $.post("/counters", {listCounter: `${list_number}`}, null);
     list_number += 1;
 }
 
 
 
 let card_number = 1;
-function nameCard(id){
+function nameCard(id, optional){
     var new_card = document.createElement('button');
     new_card.setAttribute('id', 'new-card' + card_number);
     new_card.setAttribute('class', 'new-card');
@@ -144,13 +143,19 @@ function nameCard(id){
     card_number += 1;
 
     addDragStartEvent(new_card)
+
+    if (optional){
+        new_card_namer.focus();
+        new_card_namer.value = optional;
+        new_card_namer.blur();
+    }//idk idk idk
 }
 
 
 function addDragStartEvent(element) {
     element.addEventListener('dragstart', dragStart);
     element.addEventListener('dragend', dragEnd);
-} 
+}
 
 
 function cardBlur(card, namer, id) {
@@ -269,6 +274,7 @@ function addCard(card, namer, id){
     // var container = document.getElementById(container_id);
     
     card_array.push(card);
+    sendCardstoExpress();
     // console.log(card_array);
 }
 
@@ -296,6 +302,7 @@ function editCard(card, namer){
     clickout_guy.style.zIndex = '10';
 
     deleteGuy(namer);
+    sendCardstoExpress();
 }
 
 function deleteGuy(namer){
@@ -325,27 +332,26 @@ function deleteGuy(namer){
     //     console.log('end')
     // })
     if ((name.offsetLeft - scroll_left) + 348 > window.innerWidth) {
-        console.log('in?');
         delete_guy.style.left = (name.offsetLeft - scroll_left) - 98 + 'px';
     }//sketchy
 }
 
 function deleteCard(namer){
     // var namer = document.getElementById(namer);
-    console.log(namer);
     var index = namer.substr(10);
-    console.log(index);
     var bye_guy_id = 'card-container' + index;
     var bye_guy = document.getElementById(bye_guy_id);
-    bye_guy.style.display = 'none';
-    var target = 'new-card' + index;
-    for (let i = 0;i < card_array.length;i++){
-        if (card_array[i].id == target){
-            card_array.splice(i, 1);
-        }
-    }
+    // bye_guy.style.display = 'none';
+    bye_guy.parentNode.removeChild(bye_guy);
+    // var target = 'new-card' + index;
+    // for (let i = 0;i < card_array.length;i++){
+    //     if (card_array[i].id == target){
+    //         card_array.splice(i, 1);
+    //     }
+    // }
     deleteGuyByeBye();
     reprintLists();
+    sendCardstoExpress();
 }
 
 
@@ -427,7 +433,6 @@ function moveCards() {
     var target = document.getElementById('new-cards' + target_index);
 
     var cards = current_list.children[1].children;
-    console.log(cards);
     if (selected[selected.length - 1] == ')'){
         return false;
     } else {
@@ -436,7 +441,6 @@ function moveCards() {
                 cards_to_move.push(card);
             }
         }
-        console.log(cards_to_move);
         for (let i = 0; i < cards_to_move.length;i++){
             target.append(cards_to_move[i]);
         }
@@ -444,7 +448,7 @@ function moveCards() {
     target.style.padding = '0px 8px';
     goAwayDroppy();
     reprintLists();
-
+    sendCardstoExpress();
     return false;
 }
 
@@ -486,8 +490,10 @@ function deleteList(){
     var list_number = document.getElementById('list-proxy').textContent;
     var index = list_number - 1;
     list_array.splice(index, 1);
+    $.post("/lists/remove", {index: `${index}`});
     goAwayDroppy();
     reprintLists();
+    sendCardstoExpress();
 }
 
 function moveListMenu() {
@@ -529,12 +535,13 @@ function moveList(){
             if (i == index){
                 let move = list_array.splice(i, 1)[0];
                 list_array.splice(selected, 0, move);
-
+                $.post('/lists/move', {selected: `${selected}`, index: `${index}`}, null);
             }
         }
     }
     goAwayDroppy();
     reprintLists();
+    sendCardstoExpress();
     return false;
 }
 
@@ -715,8 +722,8 @@ function dragEnd() {
         except.style.height = '0px';
     }
     this.style.height = "initial";
-    // var hide = this.previousElementSibling.previousElementSibling;
-    // hide.style.display = 'block';
+
+    sendCardstoExpress();
 }
 
 function dragOver(e){
@@ -846,9 +853,44 @@ function dragLeaveBottom(){
     }, 100);
 }
 
+function sendCardstoExpress(){
+    let lists = document.getElementsByClassName('list');
+    let which_list = 1;
+    $.post('/cards-clear', {hey: 'sup'}, null);
+    for (let list of lists){
+        for (let i = 0; i < list.childNodes[1].childNodes.length; i++) {
+            if (list.childNodes[1].childNodes[i].className == "card-container") {
+                var card = list.childNodes[1].childNodes[i];
+                if (card.childNodes[1].childNodes[0] === undefined){
+                    break;
+                }
+                var text = card.childNodes[1].childNodes[0].textContent;
+                var destination = which_list;
+                $.post('/cards', {text: `${text}`, destination: `${destination}`}, null)
+            }
+        }
+        which_list += 1;
+    }
+}
+
 // $(document).ready(function(){
 //     let 
 // })
+
+//IF I REFRESH THE PAGE TOO FAST it might not lay things out in order.
+
+$(document).ready(function(){
+    $.get('/lists', function(res){
+        for (let item of res){
+            createEmptyList(item.listName);
+        }
+    });
+    $.get('/cards', function(res){
+        for (let item of res){
+            nameCard(`new-cards${item.destination}`, item.text);
+        }
+    });
+});
 
 
 /*--- Things to fix
