@@ -48,7 +48,7 @@ function replacePlaceholder(){
 }
 
 let list_number = 1;
-function createEmptyList(list_name){
+function createEmptyList(list_name, exists){
     // create empty list to hold it all//
     var new_list = document.createElement('div');
     new_list.setAttribute('id', 'list' + list_number);
@@ -109,7 +109,7 @@ function createEmptyList(list_name){
     new_lists.appendChild(new_list);
     
     list_array.push(new_list);
-    $.post("/lists", {listName: `${list_name}`, id: `${list_number}`}, null); //don't know if i want uuid or use same ids
+    if(!exists) $.post("/lists", {listName: `${list_name}`, id: `${list_number}`}, null); //don't know if i want uuid or use same ids
     // $.post("/counters", {listCounter: `${list_number}`}, null);
     list_number += 1;
 }
@@ -148,7 +148,7 @@ function nameCard(id, optional){
         new_card_namer.focus();
         new_card_namer.value = optional;
         new_card_namer.blur();
-    }//idk idk idk
+    }
 }
 
 
@@ -274,7 +274,9 @@ function addCard(card, namer, id){
     // var container = document.getElementById(container_id);
     
     card_array.push(card);
+
     sendCardstoExpress();
+
     // console.log(card_array);
 }
 
@@ -351,7 +353,9 @@ function deleteCard(namer){
     // }
     deleteGuyByeBye();
     reprintLists();
+
     sendCardstoExpress();
+
 }
 
 
@@ -448,7 +452,9 @@ function moveCards() {
     target.style.padding = '0px 8px';
     goAwayDroppy();
     reprintLists();
+
     sendCardstoExpress();
+
     return false;
 }
 
@@ -493,7 +499,9 @@ function deleteList(){
     $.post("/lists/remove", {index: `${index}`});
     goAwayDroppy();
     reprintLists();
-    sendCardstoExpress();
+
+    // sendCardstoExpress();
+
 }
 
 function moveListMenu() {
@@ -541,7 +549,9 @@ function moveList(){
     }
     goAwayDroppy();
     reprintLists();
-    sendCardstoExpress();
+
+    // sendCardstoExpress();
+
     return false;
 }
 
@@ -724,6 +734,7 @@ function dragEnd() {
     this.style.height = "initial";
 
     sendCardstoExpress();
+
 }
 
 function dragOver(e){
@@ -856,7 +867,11 @@ function dragLeaveBottom(){
 function sendCardstoExpress(){
     let lists = document.getElementsByClassName('list');
     let which_list = 1;
-    $.post('/cards-clear', {hey: 'sup'}, null);
+
+    // IEX // clear cards
+    $.when($.post('/cards-clear', {hey: 'sup'}, null)).then(function(){
+
+
     for (let list of lists){
         for (let i = 0; i < list.childNodes[1].childNodes.length; i++) {
             if (list.childNodes[1].childNodes[i].className == "card-container") {
@@ -871,24 +886,27 @@ function sendCardstoExpress(){
         }
         which_list += 1;
     }
+
+    });
 }
 
 // $(document).ready(function(){
 //     let 
 // })
 
-//IF I REFRESH THE PAGE TOO FAST it might not lay things out in order.
+//very buggy
 
 $(document).ready(function(){
-    $.get('/lists', function(res){
+    $.when($.get('/lists', function(res){
         for (let item of res){
-            createEmptyList(item.listName);
+            createEmptyList(item.listName, true);
         }
-    });
+    })).then(function(){
     $.get('/cards', function(res){
         for (let item of res){
             nameCard(`new-cards${item.destination}`, item.text);
         }
+    });
     });
 });
 

@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 let lists = [];
-let list_number = 0;
 let cards = [];
 
 app.use(express.json());
@@ -19,8 +19,9 @@ app.post('/lists', function(req, res){
 });
 
 app.post('/cards-clear', function(req, res){
+    console.log('empty cards')
     let sweet = req.body;
-    cards = [];
+    cards = []; // Assignment
     res.send('message received');
     console.log('success?... cards...', cards);
 })
@@ -28,7 +29,6 @@ app.post('/cards-clear', function(req, res){
 app.post('/cards', function(req, res){
     cards.push(req.body);
     res.send('message received');
-    console.log(cards);
 })
 
 app.post('/lists/move', function(req, res){
@@ -45,27 +45,16 @@ app.post('/lists/move', function(req, res){
 
 app.post('/lists/remove', function(req, res){
     let index = req.body.index;
-    console.log('delete index', index);
     lists.splice(index, 1);
     res.send('message received');
 })
 
 app.get('/lists', function(req, res){
     res.send(lists);
-    lists = [];
 })
 
 app.get('/cards', function(req, res){
     res.send(cards);
 })
-
-// app.post('/counters', function(req, res){
-//     if (req.body.listCounter){
-//         let list_number_string = req.body.listCounter;
-//         list_number = parseInt(list_number_string);
-//         res.send('message received');
-//         console.log(list_number);
-//     }
-// })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
