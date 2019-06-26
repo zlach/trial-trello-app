@@ -19,15 +19,18 @@ app.post('/lists', function(req, res){
 });
 
 app.post('/cards-clear', function(req, res){
-    console.log('empty cards')
-    let sweet = req.body;
+    // console.log('empty cards')
+    let nothing = req.body;
     cards = []; // Assignment
     res.send('message received');
-    console.log('success?... cards...', cards);
+    // console.log('success?... cards...', cards);
 })
 
 app.post('/cards', function(req, res){
-    cards.push(req.body);
+    // cards.push(req.body);
+    for (let item of req.body.data){
+        cards.push(item);
+    }
     res.send('message received');
     console.log(cards);
 })

@@ -873,7 +873,7 @@ function sendCardstoExpress(){
     // $.when($.post('/cards-clear', {hey: 'sup'}, null)).then(function(){
 
     $.post('/cards-clear', {hey: 'sup'}, null)
-
+    let hold = [];
     for (let list of lists){
         for (let i = 0; i < list.childNodes[1].childNodes.length; i++) {
             if (list.childNodes[1].childNodes[i].className == "card-container") {
@@ -884,12 +884,13 @@ function sendCardstoExpress(){
                 var text = card.childNodes[1].childNodes[0].textContent;
                 var destination = which_list;
                 console.log(text, destination);
-                $.post('/cards', {text: `${text}`, destination: `${destination}`}, null)
+                // $.post('/cards', {text: `${text}`, destination: `${destination}`}, null);
+                hold.push({text: `${text}`, destination: `${destination}`});
             }
         }
         which_list += 1;
     }
-
+    $.post('/cards', {"data": hold}, null);
     // });
 }
 
@@ -910,9 +911,11 @@ $(document).ready(function(){
             cards = res;
         })
     ).then(function(){
+        // console.log(lists);
         for (let item of lists){
                 createEmptyList(item.listName, true);
         }
+        console.log(cards);
         for (let item of cards){
                 nameCard(`new-cards${item.destination}`, item.text, true);
         }
