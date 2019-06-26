@@ -29,6 +29,7 @@ app.post('/cards-clear', function(req, res){
 app.post('/cards', function(req, res){
     cards.push(req.body);
     res.send('message received');
+    console.log(cards);
 })
 
 app.post('/lists/move', function(req, res){
@@ -51,10 +52,12 @@ app.post('/lists/remove', function(req, res){
 
 app.get('/lists', function(req, res){
     res.send(lists);
+    lists = [];
 })
 
 app.get('/cards', function(req, res){
     res.send(cards);
+    cards = [];
 })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

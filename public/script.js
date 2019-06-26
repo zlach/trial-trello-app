@@ -109,7 +109,7 @@ function createEmptyList(list_name, exists){
     new_lists.appendChild(new_list);
     
     list_array.push(new_list);
-    if(!exists) $.post("/lists", {listName: `${list_name}`, id: `${list_number}`}, null); //don't know if i want uuid or use same ids
+    $.post("/lists", {listName: `${list_name}`, id: `${list_number}`}, null); //don't know if i want uuid or use same ids
     // $.post("/counters", {listCounter: `${list_number}`}, null);
     list_number += 1;
 }
@@ -145,7 +145,7 @@ function nameCard(id, optional){
     addDragStartEvent(new_card)
 
     if (optional){
-        new_card_namer.focus();
+        // new_card_namer.focus();
         new_card_namer.value = optional;
         new_card_namer.blur();
     }
@@ -243,6 +243,7 @@ function editCardFinal(card, namer, id) {
     card.style.display = 'flex';
     var card_insert = card.nextElementSibling;
     card_insert.style.display = "block";
+    sendCardstoExpress();
 }
 
 function addCard(card, namer, id){
@@ -304,7 +305,7 @@ function editCard(card, namer){
     clickout_guy.style.zIndex = '10';
 
     deleteGuy(namer);
-    sendCardstoExpress();
+    // sendCardstoExpress();
 }
 
 function deleteGuy(namer){
@@ -869,8 +870,9 @@ function sendCardstoExpress(){
     let which_list = 1;
 
     // IEX // clear cards
-    $.when($.post('/cards-clear', {hey: 'sup'}, null)).then(function(){
+    // $.when($.post('/cards-clear', {hey: 'sup'}, null)).then(function(){
 
+    $.post('/cards-clear', {hey: 'sup'}, null)
 
     for (let list of lists){
         for (let i = 0; i < list.childNodes[1].childNodes.length; i++) {
@@ -881,13 +883,14 @@ function sendCardstoExpress(){
                 }
                 var text = card.childNodes[1].childNodes[0].textContent;
                 var destination = which_list;
+                console.log(text, destination);
                 $.post('/cards', {text: `${text}`, destination: `${destination}`}, null)
             }
         }
         which_list += 1;
     }
 
-    });
+    // });
 }
 
 // $(document).ready(function(){
@@ -897,24 +900,32 @@ function sendCardstoExpress(){
 //very buggy
 
 $(document).ready(function(){
-    $.when($.get('/lists', function(res){
-        for (let item of res){
-            createEmptyList(item.listName, true);
+    let lists = [];
+    let cards = []
+    $.when(
+        $.get('/lists', function(res){
+            lists = res;
+        }),
+        $.get('/cards', function(res){
+            cards = res;
+        })
+    ).then(function(){
+        for (let item of lists){
+                createEmptyList(item.listName, true);
         }
-    })).then(function(){
-    $.get('/cards', function(res){
-        for (let item of res){
-            nameCard(`new-cards${item.destination}`, item.text);
+        for (let item of cards){
+                nameCard(`new-cards${item.destination}`, item.text, true);
         }
-    });
     });
 });
 
 
 /*--- Things to fix
 
-on drag of card, size of insert space should match size of dragged card
-disable drag when menu is up
-spacing on multiple line cards
+everything express related
+
+and everything else is messy
+
+really messy
 
 --*/
